@@ -16,7 +16,7 @@
 <body>
 
     <?php include("MenuHaut.php") ?>
-
+    <div id="conteneur2">
 	<div class="bande">
 		 <img src="profil.png" width="100px" height="100px" alt="Photo de profil par défault" /><br>
 		 <br>
@@ -28,8 +28,8 @@
 		<p> Amis :   </p>
 	</div>
 
-    <div id="conteneur2">
-        <div bandeMilieu>
+
+        <div class="bandeMilieu">
             <p> Ecrire votre statut</p>
 
         </div>

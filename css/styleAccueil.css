@@ -22,25 +22,28 @@ a
     margin-left: 12px;
 }
 
+#conteneur2
+{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .bande
 {
 
 
     padding: 15px;
-    margin-top: 20px;
     width:200px;
     height:500px;
     background: black;
     color: white;
-}
-
-#conteneur2
-{
-    display: flex;
+    margin-right: -500px;
 }
 
 .bandeMilieu
 {
+    margin-left: -300px;
     width:500px;
     height:auto;
     background: white;
