@@ -12,6 +12,7 @@ create table Multimedia (
 -- table Utilisateur
 create table Utilisateur (
     pseudo varchar(100) not null primary key,
+    email varchar(500) not null unique,
     mot_de_passe varchar(100) not null,
     type varchar(3) not null,
     nom varchar(100) not null,

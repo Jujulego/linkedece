@@ -1,0 +1,43 @@
+/*
+ * style_connexion.css
+ *
+ * Style de la page de connexion
+ */
+h1 {
+    font-size: 5em;
+
+    margin-left: 15%;
+}
+
+#formulaires {
+    display: flex;
+    justify-content: center;
+}
+
+article {
+    background: #eee;
+    color: black;
+
+    border-radius: 4px;
+
+    margin: 8px;
+    padding: 12px;
+    width: 250px;
+}
+
+article h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 4px;
+}
+
+.erreur {
+    color: red;
+}
