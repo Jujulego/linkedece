@@ -41,7 +41,15 @@
                 <article>
                     <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                     <p>Prenom Nom</p>
+
                 </article>
+                    <div id="actionpost" >
+                        <div class= butpost><input type="button" value="j'aime"></div>
+                        <a href="http://ton lien"><img src="ton image.gif" alt= "nom de ton image"></a>
+                        <div class= butpost><input type="button" value="commenter"></div>
+                        <div class= partager><input type="button" value="partager"></div>
+                    </div>
+
                 <article>
                     <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                     <p>Prenom Nom</p>
