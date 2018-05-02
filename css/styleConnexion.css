@@ -1,0 +1,52 @@
+body
+{
+    background-color: #434343ff;
+}
+
+#conteneur
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30%;
+
+}
+
+.co
+{
+
+    margin-left: 20px;
+}
+
+.co1
+{
+    margin-top: -50px;
+    margin-left: 49%;
+}
+
+a
+{
+    margin-top: 43px;
+    margin-left: 45%;
+    display: inline-block;
+    color: white;
+}
+
+.rond {
+
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    margin:10px auto;
+    border: 5px solid green;
+    text-align: center;
+    font-size: 40px;
+    color: green;
+    line-height: 17px;
+}
+
+#conteneur2
+{
+    margin-left: 480px;
+    margin-top: -80px;
+}

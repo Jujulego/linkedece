@@ -1,0 +1,49 @@
+body{
+    background-color: #434343ff;
+}
+
+#conteneur
+{
+    display: flex;
+    justify-content: top;
+
+}
+
+#espace
+{
+    flex: 1;
+}
+
+a
+{
+    margin-top: -3px;
+    color: white;
+    text-decoration: none;
+    margin-left: 12px;
+}
+
+.bande
+{
+
+
+    padding: 15px;
+    margin-top: 20px;
+    width:200px;
+    height:500px;
+    background: black;
+    color: white;
+}
+
+#conteneur2
+{
+    display: flex;
+}
+
+.bandeMilieu
+{
+    width:500px;
+    height:auto;
+    background: white;
+    color: black;
+
+}
