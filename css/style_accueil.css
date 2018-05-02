@@ -19,6 +19,8 @@
     padding: 12px;
 
     display: flex;
+    flex-direction: column;
+
 }
 
 #mur article {
@@ -29,4 +31,30 @@
     padding: 12px;
     box-shadow: #222 4px 4px 4px;
     border-radius: 4px;
+}
+
+#post
+{
+    display: flex;
+    margin-left: 15px;
+}
+
+.posteact
+{
+    margin-left: -85px;
+    margin-top: 19px;
+}
+
+#actionpost
+{
+
+}
+.butpost
+{
+    background: white;
+}
+
+.partager
+{
+    background: #0c5460;
 }
