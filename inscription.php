@@ -92,7 +92,7 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
                 </tr>
                 <tr>
                     <td><label for="email">E-Mail</label></td>
-                    <td><input id="email" type="password" name="email" value="<?php if (isset($_POST["email"])) { echo $_POST["email"]; } ?>" /></td>
+                    <td><input id="email" type="text" name="email" value="<?php if (isset($_POST["email"])) { echo $_POST["email"]; } ?>" /></td>
                     <?php
                     if (isset($_POST["rempli"]) && !isset($_POST["email"])) {
                         ?>

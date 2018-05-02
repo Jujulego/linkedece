@@ -37,24 +37,18 @@
 {
     display: flex;
     margin-left: 15px;
+    margin-bottom: 15px;
 }
+
 
 .posteact
 {
-    margin-left: -85px;
-    margin-top: 19px;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 
-#actionpost
+textarea
 {
-
-}
-.butpost
-{
-    background: white;
-}
-
-.partager
-{
-    background: #0c5460;
+    margin-left: 50px;
+    margin-top: 70px;
 }

@@ -42,20 +42,20 @@ if (!isset($_SESSION["pseudo"])) {
                     <div id="post">
                         <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <p>Prenom Nom</p>
-                        <div class="posteact"><p>Poste actuel</p></div>
+
+                        <textarea  style="width: 300px;height:100px" >Votre statut...</textarea>
                     </div>
                 </article>
                 <article>
+                    <div id="post">
                     <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                     <p>Prenom Nom</p>
-
-                </article>
-                    <div id="actionpost" >
-                        <div class= butpost><input type="button" value="j'aime"></div>
-                        <a href="http://ton lien"><img src="pouce j'aime.png" alt= "nom de ton image"></a>
-                        <div class= butpost><input type="button" value="commenter"></div>
-                        <div class= partager><input type="button" value="partager"></div>
+                    <div class="posteact"><p>Poste actuel</p></div>
                     </div>
+                    <a href="http://ton lien"><img src="pouce j'aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
+                    <a href="http://ton lien"><img src="commentaire.png" width="30px" height="30px" alt= "commentaire"></a>
+                    <a href="http://ton lien"><img src="partagebleu.png" width="30px" height="30px" alt= "commentaire"></a>
+                </article>
 
                 <article>
                     <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
