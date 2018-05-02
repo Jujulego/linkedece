@@ -10,7 +10,6 @@
 #profil {
     padding: 12px;
     background: #434343;
-    color: white;
 
     width: 15%;
 }
@@ -26,9 +25,11 @@
 
 #mur article {
     background: #eee;
+    color: black;
+
     margin: 8px;
-    padding-top: 12px;
-    box-shadow: black 4px 4px 4px;
+    padding: 12px;
+    box-shadow: #222 4px 4px 4px;
     border-radius: 4px;
 }
 
