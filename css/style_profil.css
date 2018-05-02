@@ -1,0 +1,12 @@
+
+#conteneur {
+    display: flex;
+}
+
+#profil {
+    padding: 12px;
+    background: #434343;
+    color: white;
+    width: 15%;
+}
+

@@ -32,13 +32,19 @@
 
             <section id="mur">
                 <article>
-                    <p>Ecrire votre statut</p>
+                    <div id="post">
+                        <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                        <p>Prenom Nom</p>
+                        <div class="posteact"><p>Poste actuel</p></div>
+                    </div>
                 </article>
                 <article>
-                    <p>Ecrire votre statut</p>
+                    <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                    <p>Prenom Nom</p>
                 </article>
                 <article>
-                    <p>Ecrire votre statut</p>
+                    <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                    <p>Prenom Nom</p>
                 </article>
             </section>
         </div>

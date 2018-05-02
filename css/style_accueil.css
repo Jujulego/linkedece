@@ -20,12 +20,26 @@
     padding: 12px;
 
     display: flex;
+    flex-direction: column;
+
 }
 
 #mur article {
     background: #eee;
     margin: 8px;
-    padding: 12px;
+    padding-top: 12px;
     box-shadow: black 4px 4px 4px;
     border-radius: 4px;
+}
+
+#post
+{
+    display: flex;
+    margin-left: 15px;
+}
+
+.posteact
+{
+    margin-left: -85px;
+    margin-top: 19px;
 }
