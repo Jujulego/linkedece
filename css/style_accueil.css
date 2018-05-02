@@ -1,0 +1,31 @@
+/*
+ * style_accueil.css
+ *
+ * Style de la page d'accueil
+ */
+#conteneur {
+    display: flex;
+}
+
+#profil {
+    padding: 12px;
+    background: #434343;
+    color: white;
+
+    width: 15%;
+}
+
+#mur {
+    flex: 1;
+    padding: 12px;
+
+    display: flex;
+}
+
+#mur article {
+    background: #eee;
+    margin: 8px;
+    padding: 12px;
+    box-shadow: black 4px 4px 4px;
+    border-radius: 4px;
+}

@@ -1,0 +1,24 @@
+/*
+ * style_menuhaut.css
+ *
+ * Style du menu en haut de la page
+ */
+#menu_haut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #434343;
+
+    padding: 12px;
+}
+
+#menu_haut #espace {
+    flex: 1;
+}
+
+#menu_haut a {
+    color: white;
+    text-decoration: none;
+
+    margin-left: 12px;
+}
