@@ -23,7 +23,7 @@
 
 <div id="conteneur">
     <section id="profil">
-        <img src="profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
+        <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
         <p>Prénom Nom</p>
         <p>Titre</p>
         <p>Email</p>
