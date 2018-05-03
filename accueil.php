@@ -63,7 +63,6 @@ if (!isset($_SESSION["pseudo"])) {
 
                 <article>
                     <div id="post">
-<<<<<<< HEAD
                         <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <p>Prenom Nom</p>
                         <div class="posteact">
@@ -79,15 +78,7 @@ if (!isset($_SESSION["pseudo"])) {
                             </a>
                         </div>
                      </div>
-=======
-                    <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                    <p>Prenom Nom</p>
-                    <div class="posteact"><p>Poste actuel</p></div>
-                    </div>
-                    <a href="http://ton lien"><img src="images/pouce j'aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
-                    <a href="http://ton lien"><img src="images/commentaire.png" width="30px" height="30px" alt= "commentaire"></a>
-                    <a href="http://ton lien"><img src="images/partagebleu.png" width="30px" height="30px" alt= "commentaire"></a>
->>>>>>> 99ebd0c418bef426b4a5af3cf562fca313565212
+
                 </article>
 
                 <article>
