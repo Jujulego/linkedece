@@ -26,6 +26,26 @@ $req->execute([":pseudo" => $_SESSION["pseudo"]]);
 $nbrel = $req->fetch()['nbrel'];
 $req->closeCursor();
 
+// Envoi du formulaire ?
+$envoye = false;
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $envoye = true;
+
+    if (isset($_POST["message"])) {
+        $req = $bdd->prepare("insert into post values (null, ?, ?, current_timestamp)");
+        $req->execute(array($_POST["message"], $_SESSION["pseudo"]));
+        $id = $bdd->lastInsertId();
+
+        $req = $bdd->prepare("insert into publication values (?, ?, ?, ?)");
+        $req->execute(array(
+            $id,
+            isset($_POST["lieu"]) ? $_POST["lieu"] : null,
+            $_POST["confidentialite"] == "true",
+            null
+        ));
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
@@ -77,24 +97,26 @@ $req->closeCursor();
                     </div>
                     <hr>
 
-                    <form>
-                        <textarea>Votre statut...</textarea>
+                    <form method="post">
+                        <textarea name="message" title="message" placeholder="Votre publication ..."><?php
+                            if ($envoye && isset($_POST["message"])) echo htmlspecialchars($_POST["message"]);
+                        ?></textarea>
 
                         <div id="statusinfos">
                             <div>
                                 <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" />Lieu</label>
-                                <input id="lieu" name="lieu" type="text">
+                                <input id="lieu" name="lieu" type="text" value="<?php if ($envoye && isset($_POST["lieu"])) echo $_POST["lieu"]; ?>" />
                             </div>
                             <div>
                                 <a href="http://ton lien"><img src="images/ajoutimage.png" width="40px" height="38px" alt= "ajout images"></a>
                                 <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos"></a>
                             </div>
                             <div>
-                                <select name="confidentialité" size="1">
-                                    <option>Public</option>
-                                    <option>Relation</option>
+                                <select name="confidentialite" title="confidentialite">
+                                    <option value="true">Public</option>
+                                    <option value="false" <?php if ($envoye && isset($_POST["confidentialite"]) && $_POST["confidentialite"] == "false") echo "selected"; ?>>Relations</option>
                                 </select>
-                                <input type="sumbit" float="right" width="10px" height="10px" value="Publier" >
+                                <input type="submit" width="10px" height="10px" value="Publier" >
                             </div>
                         </div>
                     </form>
