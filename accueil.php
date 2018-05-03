@@ -81,53 +81,30 @@ $req->closeCursor();
                         <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
                     </div>
                     <hr>
-<<<<<<< HEAD
-                    <div class="butstatut2">
-                    <SELECT name="confidentialité" size="1">
-                        <OPTION>Public
-                        <OPTION>Relation
-                    </SELECT>
-                        <button type="button" class="btn btn-primary">Publier</button>
-                    </div>
-                </article>
 
-                <article>
-
-                    
-                    <div id="post">
-=======
->>>>>>> 6b20ad902e4fa3c9f65be69be76c6cf1e45e88ec
 
                     <form>
-                        <textarea>Votre statut...</textarea>
+                        <textarea placeholder="Votre statut..."></textarea>
 
                         <div id="statusinfos">
                             <div>
-                                <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" />Lieu</label>
-                                <input id="lieu" name="lieu" type="text">
+                                <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" /></label>
+                                <input id="lieu" name="lieu" type="text" placeholder="Ecrivez votre lieu">
                             </div>
                             <div>
-                                <a href="http://ton lien"><img src="images/ajoutimage.png" width="40px" height="38px" alt= "ajout images"></a>
-                                <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos"></a>
+                                <a href="http://ton lien"><img src="images/ajoutimage.png" width="40px" height="38px" alt= "ajout images " data-toggle="tooltip" title="Insérer une image"></a>
+                                <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos" data-toggle="tooltip" title="Insérer une vidéo"></a>
                             </div>
                             <div>
                                 <select name="confidentialité" size="1">
                                     <option>Public</option>
                                     <option>Relation</option>
                                 </select>
-                                <input type="sumbit" float="right" width="10px" height="10px" value="Publier" >
+                                <button type="submit" class="btn btn-primary" <input type="submit" float="right" width="10px" height="10px" value="Publier" >Publier</button>
+
                             </div>
                         </div>
-<<<<<<< HEAD
-                        </br>
-                        </br>
-
-                            <div class="lien">
-
-                            <a href="http://ton lien"><img src="images/aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
-                            <a href="http://ton lien"><img src="images/commentaire.png"  width="30px" height="30px" alt= "commentaire"></a>
-=======
-                    </form>
+      </form>
                 </article>
 
                 <?php
@@ -167,7 +144,6 @@ $req->closeCursor();
                                     <a href="http://ton lien"><img src="images/partagebleu.png" width="30px" height="30px"
                                                                    alt="commentaire"></a>
                                 </div>
->>>>>>> 6b20ad902e4fa3c9f65be69be76c6cf1e45e88ec
                             </div>
                             <hr />
                             <div class="post">
