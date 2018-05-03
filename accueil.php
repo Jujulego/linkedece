@@ -86,7 +86,7 @@ $req->closeCursor();
                     <form>
                         <textarea placeholder="Votre statut..."></textarea>
 
-                        <div id="statusinfos">
+                        <div id="statusinfos"
                             <div>
                                 <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" /></label>
                                 <input id="lieu" name="lieu" type="text" placeholder="Ecrivez votre lieu">
