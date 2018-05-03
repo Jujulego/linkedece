@@ -44,10 +44,16 @@ textarea
 
 .parcours
 {
-    margin-left: 150px;
-    margin-top: 500px;
-    width: 700px;
-    height: 500px;
+    margin-left: -980px;
+    margin-top: 335px;
+    width: 980px;
+    height: auto;
+}
+
+.modifparcours
+{
+    margin-top: -6px;
+    float: right;
 }
 #mur article {
     background: #eee;

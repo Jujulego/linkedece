@@ -44,10 +44,26 @@
         </div>
 
 
+            <div class="parcours">
+                <div class="panel-group">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Experience
+                            <div class="modifparcours"><button type="button" class="btn btn-default">Modifier</button></div></div>
+                        <div class = texte class="panel-body">blablabla</div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Formation
+                            <div class="modifparcours"><button type="button"  class="btn btn-default">Modifier</button></div></div>
+                        <div class = texte class="panel-body">blablabla</div>
+                    </div>
+                </div>
+
+        </div>
+
 
     </div>
 
-    </div>
+
 
 </body>
 </html>
