@@ -93,6 +93,10 @@ textarea
 }
 hr
 {
-    text-align: center;
+    align-items: center;
+}
 
+interaction
+{
+    display: flex;
 }
