@@ -10,6 +10,10 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="css/style_profil.css" />
     <link rel="stylesheet" href="css/style_menuhaut.css" />
     <link rel="stylesheet" href="css/style_general.css" />
@@ -21,18 +25,27 @@
 
     <div id="conteneur">
         <section id="profil">
-            <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
+
             <p>Tel</p>
             <p>Email</p>
             <p>50 relations</p>
             <p><a href="modifierprofil.php">Modifier</a></p>
         </section>
-        <article>
-            <div id="post">
-                <h2>Votre formation</h2>
-                <textarea  style="width: 300px;height:100px" >Etudes :</textarea>
-            </div>
-        </article>
+
+        <div class="moi">
+
+                    <div class="couverture"><img src="images/couverture.png" width="980" height="100" alt="Photo de couverture par défault" /></div>
+                    <div class="photoprof"><img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" /></div>
+                    <div class="infos">Nom Prenom</div>
+                    <div class="infos">Titre</div>
+                    <div class="infos">Emploi actuel</div>
+                    <div class="infos">Pays et ville</div>
+
+
+        </div>
+
+
+    </div>
 
     </div>
 

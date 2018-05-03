@@ -15,8 +15,40 @@ textarea
     margin-left: 50px;
     margin-top: 70px;
 }
+.texte
+{
+    color: black;
+}
 
+.moi
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-top: 0px;
+    width:980px;
+    height: 400px;
+    background-color: white;
+    color: black;
+}
 
+.photoprof
+{
+    padding-top: 7px;
+}
+.couverture
+{
+    float: top;
+}
+
+.parcours
+{
+    margin-left: 150px;
+    margin-top: 500px;
+    width: 700px;
+    height: 500px;
+}
 #mur article {
     background: #eee;
     color: black;
