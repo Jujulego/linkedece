@@ -13,6 +13,20 @@ if (!isset($_SESSION["pseudo"])) {
     header("Location: connexion.php", true, 303);
     exit();
 }
+
+// Récupération des infos utilisateur
+$bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
+$req = $bdd->prepare("select type,email,nom,prenom from utilisateur where pseudo = ?");
+$req->execute(array($_SESSION["pseudo"]));
+$infos = $req->fetch();
+$req->closeCursor();
+
+// nombre de relations
+$req = $bdd->prepare("select count(*) as nbrel from relation where utilisateur1 = :pseudo xor utilisateur2 = :pseudo");
+$req->execute([":pseudo" => $_SESSION["pseudo"]]);
+$nbrel = $req->fetch()['nbrel'];
+$req->closeCursor();
+
 ?>
 
 
@@ -36,45 +50,38 @@ if (!isset($_SESSION["pseudo"])) {
         <div id="conteneur">
             <section id="profil">
                 <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
-                <p>Prénom Nom</p>
-                <p>Titre</p>
-                <p>Email</p>
-                <p>50 relations</p>
+                <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
+                <p><?php switch ($infos['type']) {
+                        case 'adm':
+                            echo "Administrateur";
+                            break;
+
+                        case 'etu':
+                            echo "Etudiant";
+                            break;
+
+                        case 'pro':
+                            echo "Professeur";
+                            break;
+
+                        case 'par':
+                            echo "Partenaire";
+                            break;
+
+                        default:
+                            echo "Hacker ;)";
+                    }?></p>
+                <p><?php echo htmlspecialchars($infos['email']) ?></p>
+                <p><?php echo $nbrel . ' relation' . ($nbrel != 1 ? 's' : '') ?></p>
             </section>
-
             <section id="mur">
-                <article>
-                    <div id="post">
+                <article id="status">
+                    <div class="postprofil">
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <p>Prenom Nom</p>
-
-                        <textarea  style="width: 300px;height:100px" >Votre statut...</textarea>
-                        <div id="butstatut">
-                            <div class="butstatut1"> <a href="http://ton lien"><img src="images/ajoutimage.png".png" width="40px" height="38px" alt= "ajout images"></a></div>
-                            <div class="butstatut1"> <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos"></a></div>
-
-                        </div>
-
+                        <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
                     </div>
-                    <table>
-                        <tr>
-                            <td>
-                                <a href="http://ton lien"><img src="images/logolieu.png" width="30px" height="30px" alt= "lieu"/></a>
-                            </td>
-                            <td>
-                                <input type="text" name="lieu" size="10" />
-
-                            </td>
-
-                            <td>
-                                <label>Ressenti: </label>
-                            </td>
-                            <td>
-                                <input type="text" name="lieu" size="10" />
-                            </td>
-                        </tr>
-                    </table>
                     <hr>
+<<<<<<< HEAD
                     <div class="butstatut2">
                     <SELECT name="confidentialité" size="1">
                         <OPTION>Public
@@ -88,13 +95,30 @@ if (!isset($_SESSION["pseudo"])) {
 
                     
                     <div id="post">
+=======
+>>>>>>> 6b20ad902e4fa3c9f65be69be76c6cf1e45e88ec
 
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <p>Prenom Nom</p>
-                        <div class="posteact">
-                            <p>Poste actuel </p>
+                    <form>
+                        <textarea>Votre statut...</textarea>
 
+                        <div id="statusinfos">
+                            <div>
+                                <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" />Lieu</label>
+                                <input id="lieu" name="lieu" type="text">
+                            </div>
+                            <div>
+                                <a href="http://ton lien"><img src="images/ajoutimage.png" width="40px" height="38px" alt= "ajout images"></a>
+                                <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos"></a>
+                            </div>
+                            <div>
+                                <select name="confidentialité" size="1">
+                                    <option>Public</option>
+                                    <option>Relation</option>
+                                </select>
+                                <input type="sumbit" float="right" width="10px" height="10px" value="Publier" >
+                            </div>
                         </div>
+<<<<<<< HEAD
                         </br>
                         </br>
 
@@ -102,23 +126,59 @@ if (!isset($_SESSION["pseudo"])) {
 
                             <a href="http://ton lien"><img src="images/aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
                             <a href="http://ton lien"><img src="images/commentaire.png"  width="30px" height="30px" alt= "commentaire"></a>
-                            </div>
-                            <div class ="lienpartage">
-                                <a href="http://ton lien">
-                                    <img src="images/partagebleu.png"  width="30px" height="30px" alt= "partage">
-                                </a>
-
-                            </div>
-
-
-                     </div>
-
+=======
+                    </form>
                 </article>
 
-                <article>
-                    <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                    <p>Prenom Nom</p>
-                </article>
+                <?php
+                    $req = $bdd->prepare(
+                        "select date,auteur,message,multimedia,nom,prenom
+                                    from post
+                                      inner join publication on post.id=publication.post
+                                      inner join utilisateur on post.auteur = utilisateur.pseudo 
+                                    where auteur = :pseudo -- de l'utilisateur
+                                      xor auteur in ( -- de ses amis (partie 1)
+                                              select utilisateur1 as utilisateur
+                                                from relation
+                                                where utilisateur2 = :pseudo
+                                          )
+                                      xor auteur in ( -- de ses amis (partie 2)
+                                              select utilisateur2
+                                                from relation
+                                                where utilisateur1 = :pseudo
+                                          )
+                                    order by date desc"
+                    );
+                    $req->execute([":pseudo" => $_SESSION["pseudo"]]);
+
+                    while ($post = $req->fetch()) {
+                ?>
+                        <article>
+                            <div class="postprofil">
+                                <img src="images/profil.png" width="60px" height="60px"
+                                     alt="Photo de profil par défault"/>
+                                <p><?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?></p>
+                                <p>Poste actuel</p>
+                                <div>
+                                    <a href="http://ton lien"><img src="images/pouce j'aime.png" width="30px" height="30px"
+                                                                   alt="pouce j'aime"></a>
+                                    <a href="http://ton lien"><img src="images/commentaire.png" width="30px" height="30px"
+                                                                   alt="commentaire"></a>
+                                    <a href="http://ton lien"><img src="images/partagebleu.png" width="30px" height="30px"
+                                                                   alt="commentaire"></a>
+                                </div>
+>>>>>>> 6b20ad902e4fa3c9f65be69be76c6cf1e45e88ec
+                            </div>
+                            <hr />
+                            <div class="post">
+                                <p><?php echo htmlspecialchars($post['message']) ?></p>
+                            </div>
+                        </article>
+                <?php
+                    }
+
+                    $req->closeCursor();
+                ?>
             </section>
         </div>
     </body>

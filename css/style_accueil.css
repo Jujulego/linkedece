@@ -20,12 +20,12 @@
 
     display: flex;
     flex-direction: column;
-
 }
 
 #mur article {
     background: #eee;
     color: black;
+    display: flex;
 
     margin: 8px;
     padding: 12px;
@@ -33,24 +33,42 @@
     border-radius: 4px;
 }
 
-#post
-{
+.postprofil {
     display: flex;
-    margin-left: 15px;
-    margin-bottom: 15px;
+    flex-direction: column;
+    width: 150px;
+
+    margin: 12px;
 }
 
-
-.posteact
-{
-    margin-left: -85px;
-    margin-top: 20px;
+.postprofil p {
+    margin: 5px;
 }
 
-textarea
-{
-    margin-left: 0px;
-    margin-top: 50px;
+.post {
+    margin: 12px;
+    flex: 1;
+}
+
+#status form {
+    flex: 1;
+    display: flex;
+}
+
+#statusinfos {
+    display: flex;
+    flex-direction: column;
+
+    width: 250px;
+}
+
+#statusinfos div {
+    display: flex;
+}
+
+#status form textarea {
+    margin: 12px;
+    flex: 1;
 }
 
 .notifmur a {
@@ -73,6 +91,7 @@ textarea
     margin-top:90px;
     margin-left: 850px;
 }
+
 #butstatut
 {
     display: flex;
@@ -80,23 +99,4 @@ textarea
     flex-direction: column;
     margin-top: 60px;
     margin-left: 25px;
-}
-.butstatut1
-{
-
-
-}
-
-.butstatut2
-{
-    float: right;
-}
-hr
-{
-    align-items: center;
-}
-
-interaction
-{
-    display: flex;
 }

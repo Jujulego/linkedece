@@ -11,8 +11,9 @@
 
     <div id="espace"></div>
 
-    <a href="Emplois.php"> Emplois </a>
-    <a href="Notifications.php"> Notifications </a>
-    <a href="Reseau.php"> Réseau </a>
-    <a href="Profil.php"> Profil </a>
+    <a href="emplois.php"> Emplois </a>
+    <a href="notifications.php"> Notifications </a>
+    <a href="reseau.php"> Réseau </a>
+    <a href="profil.php"> Profil </a>
+    <a href="deconnexion.php">Déconnexion</a>
 </div>
