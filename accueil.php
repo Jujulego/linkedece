@@ -5,6 +5,7 @@
  * Date: 02/05/2018
  * Time: 11:33
  */
+
 session_start();
 
 // connecté ?
@@ -13,10 +14,14 @@ if (!isset($_SESSION["pseudo"])) {
     exit();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="css/style_accueil.css" />
         <link rel="stylesheet" href="css/style_general.css" />
@@ -75,11 +80,13 @@ if (!isset($_SESSION["pseudo"])) {
                         <OPTION>Public
                         <OPTION>Relation
                     </SELECT>
-                        <input type="button" float="right" width="10px" height="10px" value="Publier" >
+                        <button type="button" class="btn btn-primary">Publier</button>
                     </div>
                 </article>
 
                 <article>
+
+                    
                     <div id="post">
 
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
@@ -91,8 +98,8 @@ if (!isset($_SESSION["pseudo"])) {
                         </br>
                         </br>
 
-
                             <div class="lien">
+
                             <a href="http://ton lien"><img src="images/aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
                             <a href="http://ton lien"><img src="images/commentaire.png"  width="30px" height="30px" alt= "commentaire"></a>
                             </div>
