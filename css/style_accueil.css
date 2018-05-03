@@ -57,3 +57,42 @@ textarea {
     padding: 5px;
     margin-left: 1400px;
 }
+
+.lien
+{
+    margin-top: 90px;
+    margin-left: -150px;
+}
+
+.lienpartage
+{
+    margin-top:90px;
+    margin-left: 850px;
+}
+#butstatut
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-left: 25px;
+}
+.butstatut1
+{
+
+
+}
+
+.butstatut2
+{
+    float: right;
+}
+hr
+{
+    align-items: center;
+}
+
+interaction
+{
+    display: flex;
+}

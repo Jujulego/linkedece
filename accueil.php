@@ -28,7 +28,7 @@ $req->closeCursor();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -75,8 +75,49 @@ $req->closeCursor();
                     <div id="postprofil">
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
+                        <div id="butstatut">
+                            <div class="butstatut1"> <a href="http://ton lien"><img src="images/ajoutimage.png".png" width="40px" height="38px" alt= "ajout images"></a></div>
+                            <div class="butstatut1"> <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos"></a></div>
+
+                        </div>
                     </div>
                     <textarea style="width: 300px;height:100px" >Votre statut...</textarea>
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="http://ton lien"><img src="images/logolieu.png" width="30px" height="30px" alt= "lieu"/></a>
+                            </td>
+                            <td>
+                                <input type="text" name="lieu" size="10" />
+
+                            </td>
+
+                            <td>
+                                <label>Ressenti: </label>
+                            </td>
+                            <td>
+                                <input type="text" name="lieu" size="10" />
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <div class="butstatut2">
+                    <SELECT name="confidentialité" size="1">
+                        <OPTION>Public
+                        <OPTION>Relation
+                    </SELECT>
+                        <input type="button" float="right" width="10px" height="10px" value="Publier" >
+                    </div>
+                </article>
+                <article>
+                    <div id="post">
+                    <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                    <p>Prenom Nom</p>
+                    <div class="posteact"><p>Poste actuel</p></div>
+                    </div>
+                    <a href="http://ton lien"><img src="images/pouce j'aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
+                    <a href="http://ton lien"><img src="images/commentaire.png" width="30px" height="30px" alt= "commentaire"></a>
+                    <a href="http://ton lien"><img src="images/partagebleu.png" width="30px" height="30px" alt= "commentaire"></a>
                 </article>
 
                 <?php
