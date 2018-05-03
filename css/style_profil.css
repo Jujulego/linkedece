@@ -34,3 +34,27 @@ textarea
     margin-bottom: 15px;
 }
 
+#profil a:link {
+    background-color: #777;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    margin-left: 200px;
+
+}
+#profil a:visited {
+    background-color: #777;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+
+}
+#profil a:hover {
+    background-color: #eee;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+
+
+}
+

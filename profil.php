@@ -25,6 +25,7 @@
             <p>Tel</p>
             <p>Email</p>
             <p>50 relations</p>
+            <p><a href="modifierprofil.php">Modifier</a></p>
         </section>
         <article>
             <div id="post">
