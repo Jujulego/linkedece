@@ -1,0 +1,15 @@
+
+#menugauche
+{
+    width: 220px;
+    height:auto;
+    background:grey;
+}
+
+.messages
+{
+    margin-left: 290px;
+    width: 800px;
+    height:400px;
+    background:white;
+}

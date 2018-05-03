@@ -12,6 +12,7 @@
     <div id="espace"></div>
 
     <a href="emplois.php"> Emplois </a>
+    <a href="messagerie.php"> Messagerie </a>
     <a href="notifications.php"> Notifications </a>
     <a href="reseau.php"> Réseau </a>
     <a href="profil.php"> Profil </a>
