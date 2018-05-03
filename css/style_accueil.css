@@ -52,3 +52,12 @@ textarea
     margin-left: 50px;
     margin-top: 70px;
 }
+
+#mur a {
+    color: #eee;
+    text-decoration: none;
+    border:1px solid #434343;
+    background-color: #434343;
+    padding: 5px;
+    margin-left: 1400px;
+}

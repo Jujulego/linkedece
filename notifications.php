@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/style_general.css" />
     <link rel="stylesheet" href="css/style_menuhaut.css" />
 
-    <title>Accueil</title>
+    <title>Notifications</title>
 </head>
 
 <body>
@@ -38,7 +38,57 @@
                 Contenu de la notification
             </p>
             <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
         </article>
+        <article>
+            <p>
+                <img src="notif.png" width="60px" height="60px" alt="Photo de notification" />
+                Contenu de la notification
+            </p>
+            <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
+        </article>
+        <article>
+            <p>
+                <img src="notif.png" width="60px" height="60px" alt="Photo de notification" />
+                Contenu de la notification
+            </p>
+            <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
+        </article>
+        <article>
+            <p>
+                <img src="notif.png" width="60px" height="60px" alt="Photo de notification" />
+                Contenu de la notification
+            </p>
+            <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
+        </article>
+        <article>
+            <p>
+                <img src="notif.png" width="60px" height="60px" alt="Photo de notification" />
+                Contenu de la notification
+            </p>
+            <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
+        </article>
+        <article>
+            <p>
+                <img src="notif.png" width="60px" height="60px" alt="Photo de notification" />
+                Contenu de la notification
+            </p>
+            <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
+        </article>
+        <article>
+            <p>
+                <img src="notif.png" width="60px" height="60px" alt="Photo de notification" />
+                Contenu de la notification
+            </p>
+            <p>nom_notif</p>
+            <p><a href="contenu_notif.php">Voir détails</a></p>
+        </article>
+
 
     </section>
 </div>
