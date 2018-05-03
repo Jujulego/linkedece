@@ -45,8 +45,30 @@
     margin: 5px;
 }
 
-textarea {
+.post {
     margin: 12px;
+    flex: 1;
+}
+
+#status form {
+    flex: 1;
+    display: flex;
+}
+
+#statusinfos {
+    display: flex;
+    flex-direction: column;
+
+    width: 250px;
+}
+
+#statusinfos div {
+    display: flex;
+}
+
+#status form textarea {
+    margin: 12px;
+    flex: 1;
 }
 
 .notifmur a {
@@ -69,6 +91,7 @@ textarea {
     margin-top:90px;
     margin-left: 850px;
 }
+
 #butstatut
 {
     display: flex;
@@ -76,23 +99,4 @@ textarea {
     flex-direction: column;
     margin-top: 60px;
     margin-left: 25px;
-}
-.butstatut1
-{
-
-
-}
-
-.butstatut2
-{
-    float: right;
-}
-hr
-{
-    align-items: center;
-}
-
-interaction
-{
-    display: flex;
 }
