@@ -13,3 +13,53 @@
     height:400px;
     background:white;
 }
+.conversationami
+{
+    margin-left: 55px;
+    width: 120px;
+    height: 80px;
+    background: #56739a;
+    position: relative;
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+.conversationami:before {
+    content:"";
+    position: absolute;
+    right: 100%;
+    top: 26px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-right: 26px solid #56739a;
+    border-bottom: 13px solid transparent;
+}
+
+.conversationmoi
+{
+    margin-left: 630px;
+    width: 120px;
+    height: 80px;
+    background: #56739a;
+    position: relative;
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+.conversationmoi:before {
+    content:"";
+    position: absolute;
+    left: 100%;
+    top: 26px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-left: 26px solid #56739a;
+    border-bottom: 13px solid transparent;
+}
+
+label
+{
+    color: black;
+}

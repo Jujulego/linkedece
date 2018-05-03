@@ -32,6 +32,14 @@
     <div class = "messages">
         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
         <label>Prenom Nom</label>
+        <hr>
+
+        <div id="conv">
+            <div class="conversationami">
+            blablablabla
+            </div>
+            <div class="conversationmoi"></div>
+            </div>
     </div>
 
 
