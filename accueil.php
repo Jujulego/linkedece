@@ -104,7 +104,7 @@ $req->closeCursor();
 
                             </div>
                         </div>
-      </form>
+                </form>
                 </article>
 
                 <?php

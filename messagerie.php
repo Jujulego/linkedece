@@ -25,8 +25,21 @@
     <?php include("include/menuhaut.php") ?>
 
         <div id ="menugauche">
-            <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-            <label>Prenom Nom</label>
+            <div class="recherche">
+                <form>
+                <table>
+                   <td>Nouveau message:   </td>
+                    <td><input type="text" color="black" name="pseudo" size="10" placeholder="Recherche..." /></td>
+                    <a href=""><img src="images/loupe.png" width="20px" height="20px" alt="recherche" /></a>
+
+                </table>
+                </form>
+            </div>
+
+            <div class="convgauche">
+                <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                <a href=" ">Prenom nom</a>
+            </div>
        </div>
 
     <div class = "messages">
@@ -39,9 +52,16 @@
             blablablabla
             </div>
             <div class="conversationmoi"></div>
-            </div>
-    </div>
+        <hr>
 
+        <form>
+            <div id="ecrire">
+                <textarea placeholder="Votre message..."></textarea>
+                <button type="submit" class="btn btn-primary" class="btn btn-primary" value="Envoyer" float="right" width="7px" height="7px" >Envoyer</button>
+            </div>
+        </div>
+        </form>
+    </div>
 
 
 

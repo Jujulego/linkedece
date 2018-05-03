@@ -1,20 +1,57 @@
 
 #menugauche
 {
-    width: 220px;
+    margin-top: 25px;
+    padding-top: 15px;
+    padding-right: 2px;
+    width: 290px;
     height:auto;
-    background:grey;
+    background:#434343;
 }
+
+.convgauche
+{
+    margin-top: 10px;
+    display: flex;
+}
+
+.recherche
+{
+    display: flex;
+    justify-content: center;
+    color:black;
+}
+
+
+a
+{
+    text-decoration:none;
+    color:black;
+
+}
+
+
+
+hr
+{
+     height: 1px;
+    background-color : #000000;
+}
+
+
 
 .messages
 {
-    margin-left: 290px;
+    padding-top: 15px;
+    margin-left: 330px;
+    margin-top: -131px;
     width: 800px;
     height:400px;
     background:white;
 }
 .conversationami
 {
+    padding: 15px;
     margin-left: 55px;
     width: 120px;
     height: 80px;
@@ -38,10 +75,12 @@
 
 .conversationmoi
 {
+
+    padding: 15px;
     margin-left: 630px;
     width: 120px;
     height: 80px;
-    background: #56739a;
+    background: #77B5FE;
     position: relative;
     -moz-border-radius:    10px;
     -webkit-border-radius: 10px;
@@ -55,8 +94,22 @@
     width: 0;
     height: 0;
     border-top: 13px solid transparent;
-    border-left: 26px solid #56739a;
+    border-left: 26px solid #77B5FE;
     border-bottom: 13px solid transparent;
+}
+
+#ecrire
+{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+}
+textarea {
+
+    margin: 12px;
+    width: 300px;
+
 }
 
 label
