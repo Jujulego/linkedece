@@ -29,7 +29,6 @@
             <p>Tel</p>
             <p>Email</p>
             <p>50 relations</p>
-            <p><a href="modifierprofil.php">Modifier</a></p>
         </section>
 
         <div class="moi">
@@ -40,9 +39,10 @@
                     <div class="infos">Titre</div>
                     <div class="infos">Emploi actuel</div>
                     <div class="infos">Pays et ville</div>
-
+                    <div class="modifmoi"> <a href="modifierprofil.php">Modifier</a></div>
 
         </div>
+
 
 
     </div>
