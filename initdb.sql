@@ -127,6 +127,7 @@ create table Post (
     id int not null auto_increment primary key,
     message varchar(250) not null,
     auteur varchar(100) not null,
+    date datetime default current_timestamp not null,
 
     constraint fk_post_utilisateur
       foreign key (auteur)

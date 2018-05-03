@@ -20,12 +20,12 @@
 
     display: flex;
     flex-direction: column;
-
 }
 
 #mur article {
     background: #eee;
     color: black;
+    display: flex;
 
     margin: 8px;
     padding: 12px;
@@ -33,24 +33,20 @@
     border-radius: 4px;
 }
 
-#post
-{
+.postprofil {
     display: flex;
-    margin-left: 15px;
-    margin-bottom: 15px;
+    flex-direction: column;
+    width: 150px;
+
+    margin: 12px;
 }
 
-
-.posteact
-{
-    margin-left: 0px;
-    margin-top: 0px;
+.postprofil p {
+    margin: 5px;
 }
 
-textarea
-{
-    margin-left: 50px;
-    margin-top: 70px;
+textarea {
+    margin: 12px;
 }
 
 .notifmur a {
