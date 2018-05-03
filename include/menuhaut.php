@@ -7,12 +7,12 @@
  */
 ?>
 <div id="menu_haut">
-    <a href="../accueil.php">Accueil</a>
+    <a href="accueil.php">Accueil</a>
 
     <div id="espace"></div>
 
     <a href="Emplois.php"> Emplois </a>
     <a href="Notifications.php"> Notifications </a>
-    <a href="Réseau.php"> Réseau </a>
+    <a href="Reseau.php"> Réseau </a>
     <a href="Profil.php"> Profil </a>
 </div>
