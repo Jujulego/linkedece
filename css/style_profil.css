@@ -10,3 +10,27 @@
     width: 15%;
 }
 
+textarea
+{
+    margin-left: 50px;
+    margin-top: 70px;
+}
+
+
+#mur article {
+    background: #eee;
+    color: black;
+
+    margin: 8px;
+    padding: 12px;
+    box-shadow: #222 4px 4px 4px;
+    border-radius: 4px;
+}
+
+#post
+{
+    display: flex;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+

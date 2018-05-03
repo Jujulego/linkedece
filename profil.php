@@ -26,6 +26,12 @@
             <p>Email</p>
             <p>50 relations</p>
         </section>
+        <article>
+            <div id="post">
+                <h2>Votre formation</h2>
+                <textarea  style="width: 300px;height:100px" >Etudes :</textarea>
+            </div>
+        </article>
 
     </div>
 
