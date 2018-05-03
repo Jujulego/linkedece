@@ -43,14 +43,14 @@
 
 .posteact
 {
-    margin-left: 0px;
-    margin-top: 0px;
+    margin-left: -85px;
+    margin-top: 20px;
 }
 
 textarea
 {
-    margin-left: 50px;
-    margin-top: 70px;
+    margin-left: 0px;
+    margin-top: 50px;
 }
 
 .notifmur a {
@@ -60,4 +60,39 @@ textarea
     background-color: #434343;
     padding: 5px;
     margin-left: 1400px;
+}
+
+.lien
+{
+    margin-top: 90px;
+    margin-left: -150px;
+}
+
+.lienpartage
+{
+    margin-top:90px;
+    margin-left: 850px;
+}
+#butstatut
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-left: 25px;
+}
+.butstatut1
+{
+
+
+}
+
+.butstatut2
+{
+    float: right;
+}
+hr
+{
+    text-align: center;
+
 }
