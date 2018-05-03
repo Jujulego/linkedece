@@ -30,7 +30,7 @@ if (!isset($_SESSION["pseudo"])) {
 
         <div id="conteneur">
             <section id="profil">
-                <img src="profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
+                <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
                 <p>Prénom Nom</p>
                 <p>Titre</p>
                 <p>Email</p>
@@ -40,7 +40,7 @@ if (!isset($_SESSION["pseudo"])) {
             <section id="mur">
                 <article>
                     <div id="post">
-                        <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <p>Prenom Nom</p>
 
                         <textarea  style="width: 300px;height:100px" >Votre statut...</textarea>
@@ -63,6 +63,7 @@ if (!isset($_SESSION["pseudo"])) {
 
                 <article>
                     <div id="post">
+<<<<<<< HEAD
                         <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <p>Prenom Nom</p>
                         <div class="posteact">
@@ -78,10 +79,19 @@ if (!isset($_SESSION["pseudo"])) {
                             </a>
                         </div>
                      </div>
+=======
+                    <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                    <p>Prenom Nom</p>
+                    <div class="posteact"><p>Poste actuel</p></div>
+                    </div>
+                    <a href="http://ton lien"><img src="images/pouce j'aime.png" width="30px" height="30px" alt= "pouce j'aime"></a>
+                    <a href="http://ton lien"><img src="images/commentaire.png" width="30px" height="30px" alt= "commentaire"></a>
+                    <a href="http://ton lien"><img src="images/partagebleu.png" width="30px" height="30px" alt= "commentaire"></a>
+>>>>>>> 99ebd0c418bef426b4a5af3cf562fca313565212
                 </article>
 
                 <article>
-                    <img src="profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                    <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                     <p>Prenom Nom</p>
                 </article>
             </section>
