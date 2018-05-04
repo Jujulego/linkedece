@@ -1,118 +1,53 @@
+#conteneur {
+    display: flex;
+}
 
-#menugauche
-{
-    margin-top: 25px;
-    padding-top: 15px;
-    padding-right: 2px;
-    width: 290px;
-    height:auto;
+#groupes {
+    padding: 12px;
+    width: 250px;
     background:#434343;
 }
 
-.convgauche
-{
-    margin-top: 10px;
-    display: flex;
-}
-
-.recherche
-{
-    display: flex;
-    justify-content: center;
-    color:black;
-}
-
-
-a
-{
+.groupe a {
     text-decoration:none;
-    color:black;
-
+    padding: 12px;
 }
 
-
-
-hr
-{
+hr {
      height: 1px;
     background-color : #000000;
 }
 
-
-
-.messages
-{
-    padding-top: 15px;
-    margin-left: 330px;
-    margin-top: -131px;
-    width: 800px;
-    height:400px;
+#messages {
+    flex: 1;
+    padding: 15px;
+    min-width: 800px;
     background:white;
+    color: black;
 }
-.conversationami
-{
-    padding: 15px;
-    margin-left: 55px;
-    width: 120px;
-    height: 80px;
+
+.conversationami, .conversationmoi {
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.conversationami {
+    margin-right: 5%;
     background: #56739a;
-    position: relative;
-    -moz-border-radius:    10px;
-    -webkit-border-radius: 10px;
-    border-radius:         10px;
 }
-.conversationami:before {
-    content:"";
-    position: absolute;
-    right: 100%;
-    top: 26px;
-    width: 0;
-    height: 0;
-    border-top: 13px solid transparent;
-    border-right: 26px solid #56739a;
-    border-bottom: 13px solid transparent;
-}
-
-.conversationmoi
-{
-
-    padding: 15px;
-    margin-left: 630px;
-    width: 120px;
-    height: 80px;
+.conversationmoi {
+    margin-left: 5%;
     background: #77B5FE;
-    position: relative;
-    -moz-border-radius:    10px;
-    -webkit-border-radius: 10px;
-    border-radius:         10px;
+    text-align: right;
 }
-.conversationmoi:before {
-    content:"";
-    position: absolute;
-    left: 100%;
-    top: 26px;
-    width: 0;
-    height: 0;
-    border-top: 13px solid transparent;
-    border-left: 26px solid #77B5FE;
-    border-bottom: 13px solid transparent;
-}
-
-#ecrire
-{
+#ecrire {
     display:flex;
     align-items: center;
     justify-content: center;
 
 }
-textarea {
 
+textarea {
     margin: 12px;
     width: 300px;
-
-}
-
-label
-{
-    color: black;
 }

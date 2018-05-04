@@ -48,6 +48,7 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
 }
 
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />

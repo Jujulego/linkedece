@@ -172,7 +172,7 @@ create table Partage (
 -- Gestion de la messagerie
 create table Groupe (
     id int not null auto_increment primary key,
-    nom varchar(250)
+    nom varchar(250) not null
  ) engine=InnoDB;
 
 create table GroupeUtilisateur (
@@ -194,6 +194,7 @@ create table Message (
     groupe int not null,
     auteur varchar(100) not null,
     message varchar(500),
+    date datetime default current_timestamp not null,
 
     constraint fk_message_groupe
       foreign key (groupe)
