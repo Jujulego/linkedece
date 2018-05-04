@@ -148,13 +148,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($envoye && isset($_POST["message"])) echo htmlspecialchars($_POST["message"]);
                         ?></textarea>
 
-                        <div id="statusinfos"
+                        <div id="statusinfos">
                             <div>
                                 <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" /></label>
-                                <input id="lieu" name="lieu" type="text" value="<?php if ($envoye && isset($_POST["lieu"])) echo $_POST["lieu"]; ?>" />
+                                <input id="lieu" name="lieu" type="text" value="<?php if ($envoye && isset($_POST["lieu"])) echo $_POST["lieu"]; ?>" placeholder="Lieu" />
                             </div>
-                            <div>
-                                <label for="multimedia">Photo</label>
+                            <div class="statusmultimedia">
+                                <label for="multimedia">Photo / Vidéo</label>
                                 <input type="file" id="multimedia" name="multimedia" value="<?php if ($envoye && isset($_FILES["multimedia"])) echo $_FILES["multimedia"]["name"]; ?>" />
                                 <p>Taille max : 8Mo</p>
                             </div>
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <input type="submit" width="10px" height="10px" value="Publier" >
                             </div>
                         </div>
-                </form>
+                    </form>
                 </article>
 
                 <?php

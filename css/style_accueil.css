@@ -67,6 +67,11 @@
     margin: 8px;
 }
 
+.statusmultimedia {
+    display: flex;
+    flex-direction: column;
+}
+
 #status form textarea {
     margin: 12px;
     flex: 1;
