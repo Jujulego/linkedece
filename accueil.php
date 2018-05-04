@@ -13,6 +13,16 @@ if (!isset($_SESSION["pseudo"])) {
     exit();
 }
 
+function texteAleatoire($longueur) {
+    $texte = "";
+
+    for ($i = 0; $i < $longueur; ++$i) {
+        $texte .= dechex(mt_rand(0, 15));
+    }
+
+    return $texte;
+}
+
 // Récupération des infos utilisateur
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
 $req = $bdd->prepare("select type,email,nom,prenom from utilisateur where pseudo = ?");
@@ -31,24 +41,55 @@ $envoye = false;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $envoye = true;
 
-    if (isset($_POST["message"])) {
+    if (isset($_POST["message"]) && $_POST["message"] != "") {
         $req = $bdd->prepare("insert into post values (null, ?, ?, current_timestamp)");
         $req->execute(array($_POST["message"], $_SESSION["pseudo"]));
         $id = $bdd->lastInsertId();
 
+        // Un fichier qui est une image ou une video
+        $idmultimedia = null;
+        if (isset($_FILES["multimedia"])
+            && ($_FILES["multimedia"]["error"] == 0)
+            && preg_match("#image|video#", $_FILES["multimedia"]["type"])) {
+
+            // type de fichier
+            if (preg_match("#image#", $_FILES["multimedia"]["type"])) {
+                $type = "img";
+            } else {
+                $type = "vid";
+            }
+
+            // Sauvegarde
+            $fichier = texteAleatoire(20) . '.' . pathinfo($_FILES["multimedia"]["name"])["extension"];
+            move_uploaded_file($_FILES["multimedia"]["tmp_name"], "media/" . $fichier);
+
+            // Base de données
+            $req = $bdd->prepare("insert into multimedia values (null, ?, ?, current_timestamp, ?)");
+            $req->execute(array(
+                $type,
+                $fichier,
+                isset($_POST["lieu"]) ? $_POST["lieu"] : null
+            ));
+
+            $idmultimedia = $bdd->lastInsertId();
+        }
+
+        // publication
         $req = $bdd->prepare("insert into publication values (?, ?, ?, ?)");
         $req->execute(array(
             $id,
             isset($_POST["lieu"]) ? $_POST["lieu"] : null,
             $_POST["confidentialite"] == "true",
-            null
+            $idmultimedia
         ));
+
+        $envoye = false;
     }
 }
 
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -97,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                     <hr>
 
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <textarea name="message" title="message" placeholder="Votre publication ..."><?php
                             if ($envoye && isset($_POST["message"])) echo htmlspecialchars($_POST["message"]);
                         ?></textarea>
@@ -108,8 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <input id="lieu" name="lieu" type="text" value="<?php if ($envoye && isset($_POST["lieu"])) echo $_POST["lieu"]; ?>" />
                             </div>
                             <div>
-                                <a href="http://ton lien"><img src="images/ajoutimage.png" width="40px" height="38px" alt= "ajout images"></a>
-                                <a href="http://ton lien"><img src="images/ajoutvideo.png" width="35px" height="38px" alt= "ajout vidéos"></a>
+                                <label for="multimedia">Photo</label>
+                                <input type="file" id="multimedia" name="multimedia" value="<?php if ($envoye && isset($_FILES["multimedia"])) echo $_FILES["multimedia"]["name"]; ?>" />
+                                <p>Taille max : 8Mo</p>
                             </div>
                             <div>
                                 <select name="confidentialite" title="confidentialite">
@@ -162,6 +204,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </div>
                             <hr />
                             <div class="post">
+                                <?php
+                                    if ($post["multimedia"] != null) {
+                                        // Récupération des infos image
+                                        $reqm = $bdd->prepare("select fichier,type from multimedia where id = ?");
+                                        $reqm->execute(array($post["multimedia"]));
+
+                                        $image = $reqm->fetch();
+
+                                        $reqm->closeCursor();
+
+                                        if ($image["type"] == "img") {
+                                            ?>
+                                            <img src="<?php echo "media/" . $image["fichier"]; ?>"/>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <video controls src="<?php echo "media/" . $image["fichier"]; ?>"></video>
+                                            <?php
+                                        }
+                                    }
+                                ?>
                                 <p><?php echo htmlspecialchars($post['message']) ?></p>
                             </div>
                         </article>
