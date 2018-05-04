@@ -17,6 +17,7 @@
     flex: 1;
 }
 
+
 #menu_haut a:link {
     color: white;
     text-decoration: none;
@@ -38,5 +39,5 @@
 
     padding: 8px 10px;
     display: inline-block;
-    margin: 2px 5px;
+    margin: -5px 5px;
 }

@@ -5,6 +5,7 @@
  * Date: 02/05/2018
  * Time: 11:33
  */
+
 session_start();
 
 // connecté ?
@@ -88,10 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="css/style_accueil.css" />
         <link rel="stylesheet" href="css/style_general.css" />
@@ -143,9 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($envoye && isset($_POST["message"])) echo htmlspecialchars($_POST["message"]);
                         ?></textarea>
 
-                        <div id="statusinfos">
+                        <div id="statusinfos"
                             <div>
-                                <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" />Lieu</label>
+                                <label for="lieu"><img src="images/logolieu.png" width="30px" height="30px" /></label>
                                 <input id="lieu" name="lieu" type="text" value="<?php if ($envoye && isset($_POST["lieu"])) echo $_POST["lieu"]; ?>" />
                             </div>
                             <div>
@@ -161,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <input type="submit" width="10px" height="10px" value="Publier" >
                             </div>
                         </div>
-                    </form>
+                </form>
                 </article>
 
                 <?php
