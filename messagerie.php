@@ -125,7 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <?php
                                 while ($message = $req->fetch()) {
                                     ?>
-                                    <p class="<?php echo $message["auteur"] == $_SESSION["pseudo"] ? "conversationmoi" : "conversationami"; ?>"><?php echo $message["auteur"] . ": " . $message["message"]; ?></p>
+                                    <p class="<?php echo $message["auteur"] == $_SESSION["pseudo"] ? "conversationmoi" : "conversationami"; ?>">
+                                        <?php echo $message["auteur"] . ": " . $message["message"]; ?>
+                                    </p>
                                     <?php
                                 }
                             ?>

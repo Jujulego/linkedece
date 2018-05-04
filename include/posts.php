@@ -23,8 +23,13 @@ while ($post = $posts->fetch()) {
         <div class="postprofil">
             <img src="<?php echo ($post["photoprofil"] == null ? "images/profil.png" : "media/" . $post["photoprofil"]) ?>" width="60px" height="60px"
                  alt="Photo de profil par défault"/>
-            <p><?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?></p>
-            <p>Poste actuel</p>
+            <p>
+                <a href="profil.php?<?php echo http_build_query(["pseudo"=>$post["auteur"]]) ?>">
+                    <?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?>
+                </a>
+            </p>
+            <p>
+                <?php echo htmlspecialchars($post['poste']) ?></p>
             <div>
                 <?php if ($aimee) {
                     ?>

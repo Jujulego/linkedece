@@ -35,7 +35,6 @@ if (!isset($_SESSION["pseudo"])) {
                     <a href="#page de profil du contact">Prenom Nom</a>
                     <input type="button" value="Ajouter à mon réseau">
                 </article>
-
                 <article class="liencontact">
                     <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                     <a href="#page de profil du contact">Prenom Nom</a>

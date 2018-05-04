@@ -11,7 +11,7 @@ if (!isset($bdd)) {
     $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
 }
 $req = $bdd->prepare(
-    "select utilisateur.type as type,email,nom,prenom,fichier
+    "select utilisateur.type as type,pseudo,email,nom,prenom,fichier,poste,secteur
                       from utilisateur left join multimedia on utilisateur.photo_profil = multimedia.id
                       where pseudo = ?"
 );

@@ -16,12 +16,12 @@ if (!isset($_POST["categorie"])) {
 // Inscription
 $pseudo_existant = false;
 
-if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom"], $_POST["prenom"], $_POST["naissance"])) {
+if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom"], $_POST["prenom"], $_POST["naissance"], $_POST["poste"], $_POST["secteur"])) {
     // connexion à la base de données
     $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
 
     // Requete d'ajout
-    $req = $bdd->prepare("insert into utilisateur values (?, ?, ?, ?, ?, ?, ?, null, null)");
+    $req = $bdd->prepare("insert into utilisateur values (?, ?, ?, ?, ?, ?, ?, ?, ?, null, null)");
     $req->execute(array(
         $_POST["pseudo"],
         $_POST["email"],
@@ -29,7 +29,9 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
         $_POST["categorie"],
         $_POST["nom"],
         $_POST["prenom"],
-        $_POST["naissance"]
+        $_POST["naissance"],
+        $_POST["poste"],
+        $_POST["secteur"]
     ));
 
     if ($req->errorCode() == 0) {
@@ -140,6 +142,28 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
                     <td><input id="naissance" type="date" name="naissance"  value="<?php if (isset($_POST["pseudo"])) { echo $_POST["naissance"]; } ?>" /></td>
                     <?php
                     if (isset($_POST["rempli"]) && !isset($_POST["naissance"])) {
+                        ?>
+                        <td><p>Champ obligatoire</p></td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+                <tr>
+                    <td><label for="poste">Poste</label></td>
+                    <td><input id="poste" type="text" name="poste"  value="<?php if (isset($_POST["poste"])) { echo $_POST["poste"]; } ?>" /></td>
+                    <?php
+                    if (isset($_POST["rempli"]) && !isset($_POST["poste"])) {
+                        ?>
+                        <td><p>Champ obligatoire</p></td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+                <tr>
+                    <td><label for="secteur">Secteur</label></td>
+                    <td><input id="secteur" type="text" name="secteur"  value="<?php if (isset($_POST["secteur"])) { echo $_POST["secteur"]; } ?>" /></td>
+                    <?php
+                    if (isset($_POST["rempli"]) && !isset($_POST["secteur"])) {
                         ?>
                         <td><p>Champ obligatoire</p></td>
                         <?php

@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 <?php
                     $posts = $bdd->prepare(
-                        "select post.id as id,date,auteur,message,multimedia,nom,prenom,fichier as photoprofil
+                        "select post.id as id,date,auteur,message,multimedia,nom,prenom,fichier as photoprofil,poste
                                     from post
                                       inner join publication on post.id=publication.post
                                       inner join utilisateur on post.auteur = utilisateur.pseudo

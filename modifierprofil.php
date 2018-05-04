@@ -25,7 +25,7 @@ function texteAleatoire($longueur) {
 
 // Récupération des infos utilisateur
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-$req = $bdd->prepare("select pseudo,email,nom,prenom from utilisateur where pseudo = ?");
+$req = $bdd->prepare("select pseudo,email,nom,prenom,photo_profil,poste,secteur from utilisateur where pseudo = ?");
 $req->execute(array($_SESSION["pseudo"]));
 $infos = $req->fetch();
 $req->closeCursor();
@@ -36,21 +36,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $envoye = true;
 
     // Gestion des champs
-    if (isset($_POST["email"]) && ($_POST["email"] != $infos["email"])) {
+    if (isset($_POST["email"])) {
         $infos["email"] = $_POST["email"];
     }
 
-    if (isset($_POST["nom"]) && ($_POST["nom"] != $infos["nom"])) {
+    if (isset($_POST["nom"])) {
         $infos["nom"] = $_POST["nom"];
     }
 
-    if (isset($_POST["prenom"]) && ($_POST["prenom"] != $infos["prenom"])) {
+    if (isset($_POST["prenom"])) {
         $infos["prenom"] = $_POST["prenom"];
     }
 
+    if (isset($_POST["poste"])) {
+        $infos["poste"] = $_POST["poste"];
+    }
+
+    if (isset($_POST["secteur"])) {
+        $infos["secteur"] = $_POST["secteur"];
+    }
+
     // Photo de profil
-    $idmultimedia = null;
-    if (isset($_FILES["imageprofil"])) {
+    $idmultimedia = $infos["photo_profil"];
+    if (isset($_FILES["imageprofil"]) && $_FILES["imageprofil"]["error"] == 0) {
         // Sauvegarde
         $fichier = texteAleatoire(20) . '.' . pathinfo($_FILES["imageprofil"]["name"])["extension"];
         move_uploaded_file($_FILES["imageprofil"]["tmp_name"], "media/" . $fichier);
@@ -66,13 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // Modification !!!
     if (!isset($erreur)) {
-        $req = $bdd->prepare("update utilisateur set nom = ?, prenom = ?, email = ?, photo_profil = ? where pseudo = ?");
+        $req = $bdd->prepare("update utilisateur set nom = ?, prenom = ?, email = ?, photo_profil = ?, poste = ?, secteur = ? where pseudo = ?");
         $req->execute(array(
             $infos["nom"],
             $infos["prenom"],
             $infos["email"],
             $idmultimedia,
-            $_SESSION["pseudo"]
+            $_SESSION["pseudo"],
+            $infos["poste"],
+            $infos["secteur"]
         ));
     }
 }
@@ -102,21 +112,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <table>
                     <tr>
                         <td><label for="pseudo">Pseudo :</label></td>
-                        <td><?php echo $infos["pseudo"]; ?></td>
+                        <td><?php echo htmlspecialchars($infos["pseudo"]); ?></td>
                         <td><label for="email">Email :</label></td>
-                        <td><input id="email" type="text" name="nom" value="<?php echo $infos["email"]; ?>" /></td>
+                        <td><input id="email" type="text" name="nom" value="<?php echo htmlspecialchars($infos["email"]); ?>" /></td>
                     </tr>
                     <tr>
                         <td><label for="prenom">Prénom :</label></td>
-                        <td><input id="prenom" type="text" name="prenom" value="<?php echo $infos["prenom"]; ?>" /></td>
+                        <td><input id="prenom" type="text" name="prenom" value="<?php echo htmlspecialchars($infos["prenom"]); ?>" /></td>
                         <td><label for="nom">Nom :</label></td>
-                        <td><input id="nom" type="text" name="nom" value="<?php echo $infos["nom"]; ?>" /></td>
+                        <td><input id="nom" type="text" name="nom" value="<?php echo htmlspecialchars($infos["nom"]); ?>" /></td>
                     </tr>
                     <tr>
                         <td><label for="secteur">Secteur :</label></td>
-                        <td><input id="secteur" type="text" name="secteur"/></td>
+                        <td><input id="secteur" type="text" name="secteur" value="<?php echo htmlspecialchars($infos["secteur"]); ?>" /></td>
                         <td><label for="poste">Poste actuel :</label></td>
-                        <td><input id="poste" type="text" name="poste" /></td>
+                        <td><input id="poste" type="text" name="poste" value="<?php echo htmlspecialchars($infos["poste"]); ?>" /></td>
                     </tr>
                     <tr>
                         <td colspan="3"></td>

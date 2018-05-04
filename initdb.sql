@@ -18,6 +18,8 @@ create table Utilisateur (
     nom varchar(100) not null,
     prenom varchar(100) not null,
     naissance date not null,
+    poste varchar(250) not null,
+    secteur varchar(250) not null,
     photo_profil int,
     image_fond int,
 
