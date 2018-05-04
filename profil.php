@@ -42,23 +42,55 @@
                     <div class="modifmoi"> <a href="modifierprofil.php">Modifier</a></div>
 
         </div>
+        <div class="parcours">
+            <h2>Mon experience</h2>
+            <div class="modifparcours"><a href="modifexperience.php"><button type="button" class="btn btn-default">Modifier</button></a></div>
 
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Poste</th>
+                        <th>Entreprise</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>juillet-aout 2017</td>
+                        <td>Maitre nageur</td>
+                        <td>Piscine municipale</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-            <div class="parcours">
-                <div class="panel-group">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Experience
-                            <div class="modifparcours"><button type="button" class="btn btn-default">Modifier</button></div></div>
-                        <div class = texte class="panel-body">blablabla</div>
-                    </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Formation
-                            <div class="modifparcours"><button type="button"  class="btn btn-default">Modifier</button></div></div>
-                        <div class = texte class="panel-body">blablabla</div>
-                    </div>
-                </div>
+            <h2>Ma formation</h2>
+            <div class="modifparcours"><button type="button" OnClick="window.location.href=modifexperience.php"class="btn btn-default">Modifier</button></div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Année</th>
+                        <th>Ecole</th>
+                        <th>Compétences acquises</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Septembre-Decembre 2017</td>
+                        <td>3ème année- semestre à l'étranger</td>
+                        <td>Bangor University</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
         </div>
+
 
 
     </div>
