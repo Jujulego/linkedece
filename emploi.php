@@ -35,7 +35,7 @@
             <p>50 relations</p>
         </section>
 
-        <section id="mur" class="notifmur">
+        <section id="murreseau" class="notifmur">
             <article>
                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
 
