@@ -1,0 +1,43 @@
+/*
+ * style_ajout_reseau.css
+ *
+ * Style de la page ajout réseau
+ */
+#conteneur {
+    display: flex;
+}
+
+#supermur {
+    flex: 1;
+}
+
+#profil {
+    padding: 12px;
+    background: #434343;
+
+    width: 15%;
+}
+
+#murreseau {
+    flex: 1;
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    height: min-content;
+}
+
+#murreseau article {
+    background: #eee;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    padding: 12px;
+    box-shadow: #222 4px 4px 4px;
+    border-radius: 4px;
+}
+.liencontact a{
+    color: #434343;
+    text-decoration: none;
+    margin: 5px;
+}

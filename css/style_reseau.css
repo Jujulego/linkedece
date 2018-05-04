@@ -1,0 +1,71 @@
+/*
+ * style_reseau.css
+ *
+ * Style de la page réseau
+ */
+#conteneur {
+    display: flex;
+}
+
+#supermur {
+    flex: 1;
+}
+
+#profil {
+    padding: 12px;
+    background: #434343;
+
+    width: 15%;
+}
+
+#murreseau {
+    flex: 1;
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#murreseau article {
+    background: #eee;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    padding: 12px;
+    box-shadow: #222 4px 4px 4px;
+    border-radius: 4px;
+}
+
+#btnajout {
+    text-align: center;
+}
+
+#btnajout a:link {
+    background-color: #434343;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+
+
+
+}
+#btnajout a:visited {
+    background-color: #434343;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+
+}
+#btnajout a:hover {
+    background-color: #eee;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+
+
+}
+
+.liencontact a{
+    color: #434343;
+    text-decoration: none;
+}

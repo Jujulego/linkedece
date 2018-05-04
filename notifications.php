@@ -39,6 +39,7 @@ $req->closeCursor();
     <link rel="stylesheet" href="css/style_accueil.css" />
     <link rel="stylesheet" href="css/style_general.css" />
     <link rel="stylesheet" href="css/style_menuhaut.css" />
+    <link rel="stylesheet" href="css/style_notifications.css" />
 
     <title>Notifications</title>
 </head>

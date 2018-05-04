@@ -46,17 +46,15 @@ textarea
 {
     margin-left: -980px;
     margin-top: 335px;
-    width: 980px;
+    width: 1020px;
     height: auto;
 }
 
 .modifparcours
 {
-    margin-left: -80px;
-    margin-top: -40px;
-    float: right;
+   float: right;
 }
-#mur article {
+#murreseau article {
     background: #eee;
     color: black;
 
@@ -78,6 +76,13 @@ textarea
     margin-left: 700px;
     margin-top: -20px;
 }
+
+.photos
+{
+    margin-left: 500px;
+    margin-top: -20px;
+}
+
 .moi a:link {
     background-color: #777;
     color: white;

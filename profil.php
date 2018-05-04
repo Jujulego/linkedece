@@ -94,46 +94,63 @@ $req->closeCursor();
         </div>
         <div class="parcours">
             <h2>Mon experience</h2>
-            <div class="modifparcours"><a href="modifexperience.php"><button type="button" class="btn btn-default">Modifier</button></a></div>
-
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Date de debut</th>
+                    <th>Date de fin</th>
+                    <th>Poste</th>
+                    <th>Entreprise</th>
+                </tr>
+                </thead>
+                <tbody>
                     <tr>
-                        <th>Date</th>
-                        <th>Poste</th>
-                        <th>Entreprise</th>
+                        <td>Septembre 2017</td>
+                        <td>Decembre 2017</td>
+                        <td>nageur</td>
+                        <td>piscine municipale</td>
                     </tr>
-                    </thead>
-                    <tbody>
                     <tr>
-                        <td>juillet-aout 2017</td>
-                        <td>Maitre nageur</td>
-                        <td>Piscine municipale</td>
+                        <td><input type="date" value="datedebut""/></td>
+                        <td><input type="date" value="datefin""/></td>
+                        <td><input type="text" value="poste"/></td>
+                        <td><input type="text" value="Entreprise"/></td>
+                        <td><button type="button" OnClick="window.location.href=modifexperience.php"class="btn btn-default">Ajouter</button></td>
                     </tr>
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
             </div>
 
             <h2>Ma formation</h2>
-            <div class="modifparcours"><button type="button" OnClick="window.location.href=modifexperience.php"class="btn btn-default">Modifier</button></div>
 
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Année</th>
-                        <th>Ecole</th>
-                        <th>Compétences acquises</th>
-                    </tr>
+                        <tr>
+                            <th>Date de debut</th>
+                            <th>Date de fin</th>
+                            <th>Année</th>
+                            <th>Ecole</th>
+                            <th>Compétences acquises</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Septembre-Decembre 2017</td>
-                        <td>3ème année- semestre à l'étranger</td>
-                        <td>Bangor University</td>
-                    </tr>
+                        <tr>
+                            <td>Septembre 2017</td>
+                            <td>Decembre 2017</td>
+                            <td>3ème année- semestre à l'étranger</td>
+                            <td>Bangor University</td>
+                            <td>elec et info</td>
+                        </tr>
+                        <tr>
+                            <td><input type="date" value="datedebut""/></td>
+                            <td><input type="date" value="datefin"/></td>
+                            <td><input type="text" placeholder="annee"/></td>
+                            <td><input type="text" placeholder="ecole"/></td>
+                            <td><input type="text" placeholder="Competences acquises"/></td>
+                            <td><button type="button" OnClick="window.location.href=modifexperience.php"class="btn btn-default">Ajouter</button></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
