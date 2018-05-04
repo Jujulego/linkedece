@@ -4,66 +4,145 @@
  * User: Nolwenn
  * Date: 03/05/2018
  * Time: 15:40
- */?>
+ */
+session_start();
 
+// connecté ?
+if (!isset($_SESSION["pseudo"])) {
+    header("Location: connexion.php", true, 303);
+    exit();
+}
+
+// Récupération des groupes
+$bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_GET["id"]) && isset($_POST["message"])) {
+        // Envoi d'un message
+        $req = $bdd->prepare(
+            "insert into message values (null, ?, ?, ?, current_timestamp)"
+        );
+        $req->execute(array(
+            $_GET["id"],
+            $_SESSION["pseudo"],
+            $_POST["message"]
+        ));
+        $req->closeCursor();
+    } else if (isset($_POST["nom"])) {
+        // Création d'un groupe
+        $req = $bdd->prepare(
+            "insert into groupe values (null, ?)"
+        );
+        $req->execute(array(
+            $_POST["nom"]
+        ));
+        $req->closeCursor();
+        $groupeid = $bdd->lastInsertId();
+
+        // Ajout de l'utilisateur au groupe
+        $req = $bdd->prepare(
+            "insert into groupeutilisateur values (null, ?, ?)"
+        );
+        $req->execute(array(
+            $groupeid,
+            $_SESSION["pseudo"],
+        ));
+        $req->closeCursor();
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/style_accueil.css" />
+        <link rel="stylesheet" href="css/style_general.css" />
+        <link rel="stylesheet" href="css/style_menuhaut.css" />
+        <link rel="stylesheet" href="css/style_messagerie.css" />
 
-    <link rel="stylesheet" href="css/style_accueil.css" />
-    <link rel="stylesheet" href="css/style_general.css" />
-    <link rel="stylesheet" href="css/style_menuhaut.css" />
-    <link rel="stylesheet" href="css/style_messagerie.css" />
+        <title>Messagerie</title>
+    </head>
+    <body>
+        <?php include("include/menuhaut.php") ?>
 
-    <title>Messagerie</title>
-</head>
-<body>
-    <?php include("include/menuhaut.php") ?>
+        <div id="conteneur">
+            <div id="groupes">
+                <h3>Groupes</h3>
+                <?php
+                $req = $bdd->prepare(
+                    "select groupe.id,nom
+                                from groupe
+                                  inner join groupeutilisateur on groupe.id = groupeutilisateur.groupe
+                                where utilisateur = ?"
+                );
+                $req->execute(array($_SESSION["pseudo"]));
 
-        <div id ="menugauche">
-            <div class="recherche">
-                <form>
-                <table>
-                   <td>Nouveau message:   </td>
-                    <td><input type="text" color="black" name="pseudo" size="10" placeholder="Recherche..." /></td>
-                    <a href=""><img src="images/loupe.png" width="20px" height="20px" alt="recherche" /></a>
-
-                </table>
+                while ($groupe = $req->fetch()) {
+                    ?>
+                    <div class="groupe">
+                        <a href="messagerie.php?<?php echo http_build_query(["id" => $groupe["id"]]); ?>"><?php echo $groupe["nom"]; ?></a>
+                    </div>
+                    <?php
+                }
+                $req->closeCursor();
+                ?>
+                <form method="post">
+                    <input type="text" title="nom" name="nom" placeholder="Nom" />
+                    <input type="submit" value="Créer" />
                 </form>
             </div>
 
-            <div class="convgauche">
-                <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                <a href=" ">Prenom nom</a>
-            </div>
-       </div>
+            <div id="messages">
+                <?php
+                    if (isset($_GET["id"])) {
+                        // Récupération du nom
+                        $req = $bdd->prepare(
+                            "select nom
+                                from groupe
+                                where id = ?"
+                        );
+                        $req->execute(array($_GET["id"]));
+                        $groupe = $req->fetch()["nom"];
+                        $req->closeCursor();
 
-    <div class = "messages">
-        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-        <label>Prenom Nom</label>
-        <hr>
+                        // Récupération des messages
+                        $req = $bdd->prepare(
+                            "select message,auteur
+                                        from message
+                                        where groupe=?
+                                        order by date asc
+                                        limit 20"
+                        );
+                        $req->execute(array($_GET["id"]));
 
-        <div id="conv">
-            <div class="conversationami">
-            blablablabla
-            </div>
-            <div class="conversationmoi"></div>
-        <hr>
-
-        <form>
-            <div id="ecrire">
-                <textarea placeholder="Votre message..."></textarea>
-                <button type="submit" class="btn btn-primary" class="btn btn-primary" value="Envoyer" float="right" width="7px" height="7px" >Envoyer</button>
+                        ?>
+                        <p>Groupe : <?php echo $groupe; ?></p>
+                        <hr/>
+                        <div id="conv">
+                            <?php
+                                while ($message = $req->fetch()) {
+                                    ?>
+                                    <p class="<?php echo $message["auteur"] == $_SESSION["pseudo"] ? "conversationmoi" : "conversationami"; ?>"><?php echo $message["auteur"] . ": " . $message["message"]; ?></p>
+                                    <?php
+                                }
+                            ?>
+                        </div>
+                        <hr/>
+                        <form method="post">
+                            <div id="ecrire">
+                                <textarea placeholder="Votre message..." name="message"></textarea>
+                                <button type="submit" class="btn btn-primary" class="btn btn-primary" value="Envoyer"
+                                        float="right" width="7px" height="7px">Envoyer
+                                </button>
+                            </div>
+                        </form>
+                        <?php
+                    }
+                ?>
             </div>
         </div>
-        </form>
-    </div>
-
-
-
-</body>
+    </body>
 </html>
