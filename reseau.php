@@ -60,6 +60,7 @@ $req->closeCursor();
                     <article class="liencontact">
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <a href="#page de profil du contact">Prenom Nom</a>
+
                     </article>
                     <article class="liencontact">
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
@@ -68,6 +69,7 @@ $req->closeCursor();
                     <article class="liencontact">
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                         <a href="#page de profil du contact">Prenom Nom</a>
+
                     </article>
                     <article class="liencontact">
                         <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
