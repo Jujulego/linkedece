@@ -64,6 +64,12 @@
 
 #statusinfos div {
     display: flex;
+    margin: 8px;
+}
+
+.statusmultimedia {
+    display: flex;
+    flex-direction: column;
 }
 
 #status form textarea {

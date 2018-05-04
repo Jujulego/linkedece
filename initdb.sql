@@ -136,6 +136,8 @@ create table Post (
 
 create table Publication (
     post int not null auto_increment primary key,
+    lieu varchar(250),
+    public bool not null default false,
     multimedia int,
 
     constraint fk_publication_multimedia
@@ -156,6 +158,7 @@ create table Partage (
     id int not null auto_increment primary key,
     utilisateur varchar(100) not null,
     publication int not null,
+    jaime boolean not null default false,
 
   constraint fk_partage_utilisateur
     foreign key (utilisateur)
