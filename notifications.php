@@ -12,7 +12,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <link rel="stylesheet" href="css/style_accueil.css" />
+
     <link rel="stylesheet" href="css/style_general.css" />
     <link rel="stylesheet" href="css/style_menuhaut.css" />
     <link rel="stylesheet" href="css/style_notifications.css" />
@@ -32,64 +32,61 @@
         <p>50 relations</p>
     </section>
 
-    <section id="mur" class="notifmur">
-        <article>
-            <p>
+    <section id="murnotif">
+
+        <article class="notif">
             <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
+            <div class="contenu">
+                <p>Titre notif / demande d'ajout</p>
+                <p>Contenu de la notification</p>
+            </div>
+            <p><a href="contenu_notif.php">Accepter la demande d'ajout</a></p>
         </article>
-        <article>
-            <p>
-                <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
+        <article class="notif">
+            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
+            <div class="contenu">
+                <p>Titre notif / machin a accepté votre demande d'ajout</p>
+                <p>Contenu de la notification</p>
+            </div>
+
         </article>
-        <article>
-            <p>
-                <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
-        </article>
-        <article>
-            <p>
-                <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
-        </article>
-        <article>
-            <p>
-                <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
-        </article>
-        <article>
-            <p>
-                <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
-        </article>
-        <article>
-            <p>
-                <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-                Contenu de la notification
-            </p>
-            <p>nom_notif</p>
-            <p><a href="contenu_notif.php">Voir détails</a></p>
+        <article class="notif">
+            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
+            <div class="contenu">
+                <p>Titre notif / machin a publié dans le fil d'actualité</p>
+                <p>Contenu de la notification</p>
+            </div>
+            <p><a href="contenu_notif.php">Voir la publication (aller le fil d'actualité)</a></p>
         </article>
 
+        <article class="notif">
+            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
+            <div class="contenu">
+                <p>Titre notif / machin a aimé votre publication</p>
+                <p>Contenu de la notification</p>
+            </div>
+
+        </article>
+
+        <article class="notif">
+            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
+            <div class="contenu">
+                <p>Titre notif / machin a commenté votre publication</p>
+                <p>Contenu de la notification</p>
+            </div>
+            <p><a href="contenu_notif.php">Voir le commentaire</a></p>
+
+        </article>
+
+
+        <article class="notif">
+            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
+            <div class="contenu">
+                <p>Titre notif / machin a partagé votre publication</p>
+                <p>Contenu de la notification</p>
+            </div>
+
+        </article>
 
     </section>
 </div>
