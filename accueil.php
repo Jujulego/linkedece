@@ -5,7 +5,6 @@
  * Date: 02/05/2018
  * Time: 11:33
  */
-
 session_start();
 
 // connecté ?
@@ -24,29 +23,13 @@ function texteAleatoire($longueur) {
     return $texte;
 }
 
-// Récupération des infos utilisateur
-$bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-$req = $bdd->prepare(
-        "select utilisateur.type as type,email,nom,prenom,fichier
-                      from utilisateur left join multimedia on utilisateur.photo_profil = multimedia.id
-                      where pseudo = ?"
-);
-$req->execute(array($_SESSION["pseudo"]));
-$infos = $req->fetch();
-$req->closeCursor();
-
-// nombre de relations
-$req = $bdd->prepare("select count(*) as nbrel from relation where utilisateur1 = :pseudo xor utilisateur2 = :pseudo");
-$req->execute([":pseudo" => $_SESSION["pseudo"]]);
-$nbrel = $req->fetch()['nbrel'];
-$req->closeCursor();
-
 // Envoi du formulaire ?
 $envoye = false;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $envoye = true;
 
     if (isset($_POST["message"]) && $_POST["message"] != "") {
+        $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
         $req = $bdd->prepare("insert into post values (null, ?, ?, current_timestamp)");
         $req->execute(array($_POST["message"], $_SESSION["pseudo"]));
         $id = $bdd->lastInsertId();

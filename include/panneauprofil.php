@@ -6,6 +6,25 @@
  * Time: 15:08
  */
 
+// Récupération des infos utilisateur
+if (!isset($bdd)) {
+    $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
+}
+$req = $bdd->prepare(
+    "select utilisateur.type as type,email,nom,prenom,fichier
+                      from utilisateur left join multimedia on utilisateur.photo_profil = multimedia.id
+                      where pseudo = ?"
+);
+$req->execute(array($_SESSION["pseudo"]));
+$infos = $req->fetch();
+$req->closeCursor();
+
+// nombre de relations
+$req = $bdd->prepare("select count(*) as nbrel from relation where utilisateur1 = :pseudo xor utilisateur2 = :pseudo");
+$req->execute([":pseudo" => $_SESSION["pseudo"]]);
+$nbrel = $req->fetch()['nbrel'];
+$req->closeCursor();
+
 ?>
 <section id="profil">
     <img src="<?php echo ($infos["fichier"] == null ? "images/profil.png" : "media/" . $infos["fichier"]) ?>" width="100px" height="100px" alt="Photo de profil par défault" />

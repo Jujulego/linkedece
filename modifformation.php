@@ -5,6 +5,13 @@
  * Date: 04/05/2018
  * Time: 09:15
  */
+session_start();
+
+// connecté ?
+if (!isset($_SESSION["pseudo"])) {
+    header("Location: connexion.php", true, 303);
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
