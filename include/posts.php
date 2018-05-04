@@ -21,7 +21,7 @@ while ($post = $posts->fetch()) {
     ?>
     <article id="<?php echo $post["id"]; ?>" class="publication">
         <div class="postprofil">
-            <img src="images/profil.png" width="60px" height="60px"
+            <img src="<?php echo ($post["photoprofil"] == null ? "images/profil.png" : "media/" . $post["photoprofil"]) ?>" width="60px" height="60px"
                  alt="Photo de profil par défault"/>
             <p><?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?></p>
             <p>Poste actuel</p>

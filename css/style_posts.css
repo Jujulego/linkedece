@@ -27,11 +27,6 @@
     flex: 1;
 }
 
-#status form {
-    flex: 1;
-    display: flex;
-}
-
 #statusinfos {
     display: flex;
     flex-direction: column;
@@ -47,11 +42,6 @@
 .statusmultimedia {
     display: flex;
     flex-direction: column;
-}
-
-#status form textarea {
-    margin: 12px;
-    flex: 1;
 }
 
 .notifmur a {

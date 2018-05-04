@@ -26,7 +26,11 @@ function texteAleatoire($longueur) {
 
 // Récupération des infos utilisateur
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-$req = $bdd->prepare("select type,email,nom,prenom from utilisateur where pseudo = ?");
+$req = $bdd->prepare(
+        "select utilisateur.type as type,email,nom,prenom,fichier
+                      from utilisateur left join multimedia on utilisateur.photo_profil = multimedia.id
+                      where pseudo = ?"
+);
 $req->execute(array($_SESSION["pseudo"]));
 $infos = $req->fetch();
 $req->closeCursor();
@@ -110,9 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <?php include("include/panneauprofil.php"); ?>
 
             <section id="mur">
-                <article id="status">
+                <article id="status" class="publication">
                     <div class="postprofil">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
+                        <img src="<?php echo ($infos["fichier"] == null ? "images/profil.png" : "media/" . $infos["fichier"]) ?>" width="60px" height="60px" alt="Photo de profil par défault" />
                         <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
                     </div>
                     <hr>
@@ -145,10 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 <?php
                     $posts = $bdd->prepare(
-                        "select id,date,auteur,message,multimedia,nom,prenom
+                        "select post.id as id,date,auteur,message,multimedia,nom,prenom,fichier as photoprofil
                                     from post
                                       inner join publication on post.id=publication.post
-                                      inner join utilisateur on post.auteur = utilisateur.pseudo 
+                                      inner join utilisateur on post.auteur = utilisateur.pseudo
+                                      left join multimedia on utilisateur.photo_profil = multimedia.id
                                     where auteur = :pseudo -- de l'utilisateur
                                       xor auteur in ( -- de ses amis (partie 1)
                                               select utilisateur1 as utilisateur

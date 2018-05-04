@@ -8,7 +8,7 @@
 
 ?>
 <section id="profil">
-    <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
+    <img src="<?php echo ($infos["fichier"] == null ? "images/profil.png" : "media/" . $infos["fichier"]) ?>" width="100px" height="100px" alt="Photo de profil par défault" />
     <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
     <p><?php
         switch ($infos['type']) {

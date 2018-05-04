@@ -25,7 +25,11 @@ function texteAleatoire($longueur) {
 
 // Récupération des infos utilisateur
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-$req = $bdd->prepare("select type,email,nom,prenom from utilisateur where pseudo = ?");
+$req = $bdd->prepare(
+    "select utilisateur.type as type,email,nom,prenom,fichier
+                      from utilisateur left join multimedia on utilisateur.photo_profil = multimedia.id
+                      where pseudo = ?"
+);
 $req->execute(array($_SESSION["pseudo"]));
 $infos = $req->fetch();
 $req->closeCursor();
@@ -60,7 +64,7 @@ $req->closeCursor();
         <?php include("include/panneauprofil.php"); ?>
         <div class="moi">
             <div class="couverture"><img src="images/couverture.png" width="980" height="100" alt="Photo de couverture par défault" /></div>
-            <div class="photoprof"><img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" /></div>
+            <div class="photoprof"><img src="<?php echo ($infos["fichier"] == null ? "images/profil.png" : "media/" . $infos["fichier"]) ?>" width="100px" height="100px" alt="Photo de profil par défault" /></div>
             <div class="infos"><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></div>
             <div class="infos"><?php
                 switch ($infos['type']) {
@@ -137,12 +141,13 @@ $req->closeCursor();
             <h2>Mes publications</h2>
             <?php
             $posts = $bdd->prepare(
-                "select id,date,auteur,message,multimedia,nom,prenom
-                        from post
-                          inner join publication on post.id=publication.post
-                          inner join utilisateur on post.auteur = utilisateur.pseudo 
-                        where auteur = :pseudo
-                        order by date desc"
+                "select post.id as id,date,auteur,message,multimedia,nom,prenom,fichier as photoprofil
+                            from post
+                              inner join publication on post.id=publication.post
+                              inner join utilisateur on post.auteur = utilisateur.pseudo 
+                              left join multimedia on utilisateur.photo_profil = multimedia.id
+                            where auteur = :pseudo
+                            order by date desc"
             );
             $posts->execute([":pseudo" => $_SESSION["pseudo"]]);
             include("include/posts.php");
