@@ -158,6 +158,7 @@ create table Partage (
     id int not null auto_increment primary key,
     utilisateur varchar(100) not null,
     publication int not null,
+    jaime boolean not null default false,
 
   constraint fk_partage_utilisateur
     foreign key (utilisateur)

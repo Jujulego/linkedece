@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 <?php
                     $req = $bdd->prepare(
-                        "select date,auteur,message,multimedia,nom,prenom
+                        "select id,date,auteur,message,multimedia,nom,prenom
                                     from post
                                       inner join publication on post.id=publication.post
                                       inner join utilisateur on post.auteur = utilisateur.pseudo 
@@ -186,20 +186,63 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $req->execute([":pseudo" => $_SESSION["pseudo"]]);
 
                     while ($post = $req->fetch()) {
+                        // Check partagé
+                        $reqp = $bdd->prepare("select jaime from partage where utilisateur = ? and publication = ?");
+                        $reqp->execute(array(
+                            $_SESSION["pseudo"],
+                            $post["id"]
+                        ));
+
+                        $partagee = $reqp->rowCount() != 0;
+                        $aimee = $partagee ? $reqp->fetch()["jaime"] : false;
+
+                        $reqp->closeCursor();
                 ?>
-                        <article>
+                        <article id="<?php echo $post["id"]; ?>">
                             <div class="postprofil">
                                 <img src="images/profil.png" width="60px" height="60px"
                                      alt="Photo de profil par défault"/>
                                 <p><?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?></p>
                                 <p>Poste actuel</p>
                                 <div>
-                                    <a href="http://ton lien"><img src="images/pouce j'aime.png" width="30px" height="30px"
-                                                                   alt="pouce j'aime"></a>
-                                    <a href="http://ton lien"><img src="images/commentaire.png" width="30px" height="30px"
-                                                                   alt="commentaire"></a>
-                                    <a href="http://ton lien"><img src="images/partagebleu.png" width="30px" height="30px"
-                                                                   alt="commentaire"></a>
+                                    <?php if ($aimee) {
+                                        ?>
+                                        <img src="images/aimebleu.png" width="30px" height="30px" alt="pouce j'aime">
+                                        <?php
+                                    } else if ($partagee) {
+                                        ?>
+                                        <img src="images/aime.png" width="30px" height="30px" alt="pouce j'aime">
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="partage.php?<?php echo http_build_query([
+                                            "post" => $post["id"],
+                                            "like" => 1
+                                        ]); ?>">
+                                            <img src="images/aime.png" width="30px" height="30px" alt="pouce j'aime">
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <a href="http://ton lien">
+                                        <img src="images/commentaire.png" width="30px" height="30px" alt="commentaire">
+                                    </a>
+
+                                    <?php if ($partagee) {
+                                        ?>
+                                        <img src="images/partagebleu.png" width="30px" height="30px" alt="commentaire">
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="partage.php?<?php echo http_build_query([
+                                            "post" => $post["id"]
+                                        ]); ?>">
+                                            <img src="images/partage.png" width="30px" height="30px" alt="commentaire">
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
                             <hr />
