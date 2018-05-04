@@ -89,18 +89,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 ?>
-
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="css/style_accueil.css" />
         <link rel="stylesheet" href="css/style_general.css" />
         <link rel="stylesheet" href="css/style_menuhaut.css" />
+        <link rel="stylesheet" href="css/style_posts.css" />
 
         <title>Accueil</title>
     </head>
@@ -109,32 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <?php include("include/menuhaut.php") ?>
 
         <div id="conteneur">
-            <section id="profil">
-                <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
-                <p><?php echo htmlspecialchars($infos['prenom'] . ' ' . $infos['nom']) ?></p>
-                <p><?php switch ($infos['type']) {
-                        case 'adm':
-                            echo "Administrateur";
-                            break;
+            <?php include("include/panneauprofil.php"); ?>
 
-                        case 'etu':
-                            echo "Etudiant";
-                            break;
-
-                        case 'pro':
-                            echo "Professeur";
-                            break;
-
-                        case 'par':
-                            echo "Partenaire";
-                            break;
-
-                        default:
-                            echo "Hacker ;)";
-                    }?></p>
-                <p><?php echo htmlspecialchars($infos['email']) ?></p>
-                <p><?php echo $nbrel . ' relation' . ($nbrel != 1 ? 's' : '') ?></p>
-            </section>
             <section id="mur">
                 <article id="status">
                     <div class="postprofil">
@@ -170,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </article>
 
                 <?php
-                    $req = $bdd->prepare(
+                    $posts = $bdd->prepare(
                         "select id,date,auteur,message,multimedia,nom,prenom
                                     from post
                                       inner join publication on post.id=publication.post
@@ -188,98 +162,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                           )
                                     order by date desc"
                     );
-                    $req->execute([":pseudo" => $_SESSION["pseudo"]]);
-
-                    while ($post = $req->fetch()) {
-                        // Check partagé
-                        $reqp = $bdd->prepare("select jaime from partage where utilisateur = ? and publication = ?");
-                        $reqp->execute(array(
-                            $_SESSION["pseudo"],
-                            $post["id"]
-                        ));
-
-                        $partagee = $reqp->rowCount() != 0;
-                        $aimee = $partagee ? $reqp->fetch()["jaime"] : false;
-
-                        $reqp->closeCursor();
-                ?>
-                        <article id="<?php echo $post["id"]; ?>">
-                            <div class="postprofil">
-                                <img src="images/profil.png" width="60px" height="60px"
-                                     alt="Photo de profil par défault"/>
-                                <p><?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?></p>
-                                <p>Poste actuel</p>
-                                <div>
-                                    <?php if ($aimee) {
-                                        ?>
-                                        <img src="images/aimebleu.png" width="30px" height="30px" alt="pouce j'aime">
-                                        <?php
-                                    } else if ($partagee) {
-                                        ?>
-                                        <img src="images/aime.png" width="30px" height="30px" alt="pouce j'aime">
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <a href="partage.php?<?php echo http_build_query([
-                                            "post" => $post["id"],
-                                            "like" => 1
-                                        ]); ?>">
-                                            <img src="images/aime.png" width="30px" height="30px" alt="pouce j'aime">
-                                        </a>
-                                        <?php
-                                    }
-                                    ?>
-
-                                    <a href="http://ton lien">
-                                        <img src="images/commentaire.png" width="30px" height="30px" alt="commentaire">
-                                    </a>
-
-                                    <?php if ($partagee) {
-                                        ?>
-                                        <img src="images/partagebleu.png" width="30px" height="30px" alt="commentaire">
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <a href="partage.php?<?php echo http_build_query([
-                                            "post" => $post["id"]
-                                        ]); ?>">
-                                            <img src="images/partage.png" width="30px" height="30px" alt="commentaire">
-                                        </a>
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="post">
-                                <?php
-                                    if ($post["multimedia"] != null) {
-                                        // Récupération des infos image
-                                        $reqm = $bdd->prepare("select fichier,type from multimedia where id = ?");
-                                        $reqm->execute(array($post["multimedia"]));
-
-                                        $image = $reqm->fetch();
-
-                                        $reqm->closeCursor();
-
-                                        if ($image["type"] == "img") {
-                                            ?>
-                                            <img src="<?php echo "media/" . $image["fichier"]; ?>"/>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <video controls src="<?php echo "media/" . $image["fichier"]; ?>"></video>
-                                            <?php
-                                        }
-                                    }
-                                ?>
-                                <p><?php echo htmlspecialchars($post['message']) ?></p>
-                            </div>
-                        </article>
-                <?php
-                    }
-
-                    $req->closeCursor();
+                    $posts->execute([":pseudo" => $_SESSION["pseudo"]]);
+                    include("include/posts.php");
+                    $posts->closeCursor();
                 ?>
             </section>
         </div>
