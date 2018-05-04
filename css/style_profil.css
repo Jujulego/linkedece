@@ -46,15 +46,13 @@ textarea
 {
     margin-left: -980px;
     margin-top: 335px;
-    width: 980px;
+    width: 1020px;
     height: auto;
 }
 
 .modifparcours
 {
-    margin-left: -80px;
-    margin-top: -40px;
-    float: right;
+   float: right;
 }
 #mur article {
     background: #eee;
