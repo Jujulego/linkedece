@@ -17,7 +17,7 @@
 #mur {
     flex: 1;
     padding: 12px;
-
+    width: 300px;
     display: flex;
     flex-direction: column;
 }
