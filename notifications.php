@@ -48,24 +48,10 @@ $req->closeCursor();
 <?php include("include/menuhaut.php") ?>
 
 <div id="conteneur">
-<<<<<<< HEAD
-    <section id="profil">
-        <img src="images/profil.png" width="100px" height="100px" alt="Photo de profil par défault" />
-        <p>Prénom Nom</p>
-        <p>Titre</p>
-        <p>Email</p>
-        <p>50 relations</p>
-    </section>
-
-    <section id="murnotif">
-
-        <article class="notif">
-=======
     <?php include("include/panneauprofil.php"); ?>
-    <section id="mur" class="notifmur">
-        <article>
-            <p>
->>>>>>> fa0d43b82b0086d9f533485fbf11dfc2d1e25168
+    <section id="murnotif">
+        <article class="notif">
+
             <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
             <div class="contenu">
                 <p>Titre notif / demande d'ajout</p>
