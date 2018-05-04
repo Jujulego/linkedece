@@ -40,6 +40,7 @@
                     <div class="infos">Emploi actuel</div>
                     <div class="infos">Pays et ville</div>
                     <div class="modifmoi"> <a href="modifierprofil.php">Modifier</a></div>
+                    <div class="photos"> <a href="photos.php">Photos</a></div>
 
         </div>
         <div class="parcours">
