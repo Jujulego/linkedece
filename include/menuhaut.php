@@ -15,6 +15,6 @@
     <a href="messagerie.php"> Messagerie </a>
     <a href="notifications.php"> Notifications </a>
     <a href="reseau.php"> Réseau </a>
-    <a href="profil.php"> Profil </a>
+    <a href="profil.php?<?php echo http_build_query(["pseudo" => $_SESSION["pseudo"]]); ?>"> Profil </a>
     <a href="deconnexion.php">Déconnexion</a>
 </div>

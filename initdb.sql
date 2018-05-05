@@ -74,54 +74,30 @@ create table AlbumMultimedia (
 
 -- Gestion CV
 -- représente un ensemble de lignes du CV
-create table Categorie (
-    id int not null auto_increment primary key,
-    nom varchar(250) not null,
-    utilisateur varchar(100) not null,
-
-    constraint fk_categorie_utilisateur
-      foreign key (utilisateur)
-      references Utilisateur(pseudo)
- ) engine=InnoDB;
-
-create table Ligne (
-    id int not null auto_increment primary key,
-    categorie int not null,
-
-    constraint fk_ligne_categorie
-      foreign key (categorie)
-      references Categorie(id)
- ) engine=InnoDB;
-
-create table Competence (
-    id int not null auto_increment primary key,
-    nom varchar(250) not null,
-    niveau varchar(250) not null,
-
-    constraint fk_competence_id
-      foreign key (id)
-      references Ligne(id)
- ) engine=InnoDB;
-
 create table Stage (
     id int not null auto_increment primary key,
     societe varchar(250) not null,
     poste varchar(250) not null,
     date_debut date not null,
     date_fin date not null,
+    utilisateur varchar(100) not null,
 
-    constraint fk_stage_id
-      foreign key (id)
-      references Ligne(id)
+    constraint fk_stage_utilisateur
+      foreign key (utilisateur)
+      references Utilisateur(pseudo)
  ) engine=InnoDB;
 
-create table Autre (
+create table Formation (
     id int not null auto_increment primary key,
-    contenu varchar(250) not null,
+    ecole varchar(250) not null,
+    competence varchar(250) not null,
+    date_debut date not null,
+    date_fin date not null,
+    utilisateur varchar(100) not null,
 
-    constraint fk_autre_id
-      foreign key (id)
-      references Ligne(id)
+    constraint fk_formation_utilisateur
+      foreign key (utilisateur)
+      references Utilisateur(pseudo)
  ) engine=InnoDB;
 
 -- Gestion des posts

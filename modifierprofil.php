@@ -23,10 +23,23 @@ function texteAleatoire($longueur) {
     return $texte;
 }
 
-// Récupération des infos utilisateur
+// Connexion à la base de données
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-$req = $bdd->prepare("select pseudo,email,nom,prenom,photo_profil,poste,secteur from utilisateur where pseudo = ?");
+
+// Admin ?
+$req = $bdd->prepare("select type from utilisateur where pseudo = ?");
 $req->execute(array($_SESSION["pseudo"]));
+$admin = $req->fetch()["type"] == "adm";
+$req->closeCursor();
+
+if ($_GET["pseudo"] != $_SESSION["pseudo"] && !$admin) {
+    header("Location: accueil.php", true, 303);
+    exit();
+}
+
+// Récupération des infos utilisateur
+$req = $bdd->prepare("select pseudo,type,email,nom,prenom,photo_profil,poste,secteur from utilisateur where pseudo = ?");
+$req->execute(array($_GET["pseudo"]));
 $infos = $req->fetch();
 $req->closeCursor();
 
@@ -38,6 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // Gestion des champs
     if (isset($_POST["email"])) {
         $infos["email"] = $_POST["email"];
+    }
+
+    if (isset($_POST["categorie"])) {
+        $infos["type"] = $_POST["categorie"];
     }
 
     if (isset($_POST["nom"])) {
@@ -73,18 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     // Modification !!!
-    if (!isset($erreur)) {
-        $req = $bdd->prepare("update utilisateur set nom = ?, prenom = ?, email = ?, photo_profil = ?, poste = ?, secteur = ? where pseudo = ?");
-        $req->execute(array(
-            $infos["nom"],
-            $infos["prenom"],
-            $infos["email"],
-            $idmultimedia,
-            $_SESSION["pseudo"],
-            $infos["poste"],
-            $infos["secteur"]
-        ));
-    }
+    $req = $bdd->prepare("update utilisateur set type = ?, nom = ?, prenom = ?, email = ?, photo_profil = ?, poste = ?, secteur = ? where pseudo = ?");
+    $req->execute(array(
+        $infos["type"],
+        $infos["nom"],
+        $infos["prenom"],
+        $infos["email"],
+        $idmultimedia,
+        $infos["poste"],
+        $infos["secteur"],
+        $_GET["pseudo"]
+    ));
 }
 ?>
 <!DOCTYPE html>
@@ -99,13 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <body>
         <?php include("include/menuhaut.php") ?>
         <div id="menugauche">
-            <?php
-             if (isset($erreur)) {
-                 ?>
-                 <p id="erreur"><?php echo $erreur; ?></p>
-                <?php
-             }
-            ?>
             <form enctype="multipart/form-data" method="post">
                 <input type="file" accept="image/*" name="imageprofil" />
 
@@ -129,8 +138,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <td><input id="poste" type="text" name="poste" value="<?php echo htmlspecialchars($infos["poste"]); ?>" /></td>
                     </tr>
                     <tr>
+                        <td><label for="categorie">Catégorie</label></td>
+                        <td>
+                            <select id="categorie" name="categorie">
+                                <option value="etu" <?php if ($infos["type"] == "etu") echo "selected" ?>>étudiant</option>
+                                <option value="pro" <?php if ($infos["type"] == "pro") echo "selected" ?>>professeur</option>
+                                <option value="par" <?php if ($infos["type"] == "par") echo "selected" ?>>partenaire</option>
+                                <?php
+                                    if ($admin) {
+                                        ?>
+                                        <option value="adm" <?php if ($infos["type"] == "adm") echo "selected" ?>>administrateur</option>
+                                        <?php
+                                    }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="3"></td>
-                        <td><input type="submit" value="Enregistrer les modifications" ></td>
+                        <td><input type="submit" value="Enregistrer les modifications" /></td>
                     </tr>
                 </table>
             </form>
