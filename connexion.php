@@ -64,7 +64,7 @@ if (isset($_POST['pseudo'], $_POST['mot_de_passe'])) {
                     <?php
                         } else if ($mauvais_motdepasse) {
                     ?>
-                            <p class="erreur"><?php echo password_hash($mot_de_passe_form, PASSWORD_BCRYPT, [salt => "azertyuiop"]) ?></p>
+                            <p class="erreur">Mauvais mot de passe</p>
                     <?php
                         }
                     ?>

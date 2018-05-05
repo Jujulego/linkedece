@@ -16,7 +16,6 @@ if (!isset($_SESSION["pseudo"])) {
 // Récupération des infos utilisateur
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,74 +38,28 @@ $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "")
                     <a href="ajoutreseau.php">Ajouter des relations</a>
                 </p>
                 <section id="murreseau">
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
-                    <article class="liencontact">
-                        <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
-                        <a href="#page de profil du contact">Prenom Nom</a>
-                    </article>
+                    <?php
+                        $req = $bdd->prepare(
+                        "select pseudo,nom,prenom,fichier
+                                    from utilisateur
+                                      inner join (select utilisateur2 as utilisateur from relation where utilisateur1 = :pseudo
+                                            union select utilisateur1 as utilisateur from relation where utilisateur2 = :pseudo)
+                                        as amis on amis.utilisateur = pseudo
+                                    left join multimedia on photo_profil = id"
+                        );
+                        $req->execute(["pseudo" => $_SESSION["pseudo"]]);
+
+                        while ($amis = $req->fetch()) {
+                            ?>
+                            <article class="liencontact">
+                                <img src="<?php echo ($amis["fichier"] == null ? "images/profil.png" : "media/" . $amis["fichier"]) ?>" width="60px" height="60px" alt="Photo de profil par défault"/>
+                                <a href="profil.php?<?php echo http_build_query(["pseudo" => $amis["pseudo"]]) ?>">
+                                    <?php echo htmlspecialchars($amis['prenom'] . ' ' . $amis['nom']) ?>
+                                </a>
+                            </article>
+                            <?php
+                        }
+                    ?>
                 </section>
             </div>
         </div>
