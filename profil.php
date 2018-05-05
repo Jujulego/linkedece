@@ -90,6 +90,7 @@ $req->closeCursor();
                 ?></div>
             <div class="infos"><?php echo htmlspecialchars($infos['email']) ?></div>
             <div class="modifmoi"><a href="modifierprofil.php">Modifier</a></div>
+            <div class="photos"><a href="photos.php">Photos</a></div>
 
         </div>
         <div class="parcours">
@@ -114,8 +115,8 @@ $req->closeCursor();
                     <tr>
                         <td><input type="date" value="datedebut""/></td>
                         <td><input type="date" value="datefin""/></td>
-                        <td><input type="text" value="poste"/></td>
-                        <td><input type="text" value="Entreprise"/></td>
+                        <td><input type="text" placeholder="poste"/></td>
+                        <td><input type="text" placeholder="Entreprise"/></td>
                         <td><button type="button" OnClick="window.location.href=modifexperience.php"class="btn btn-default">Ajouter</button></td>
                     </tr>
                 </tbody>
