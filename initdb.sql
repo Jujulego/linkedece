@@ -25,11 +25,13 @@ create table Utilisateur (
 
     constraint fk_utilisateur_photoprofil
       foreign key (photo_profil)
-      references Multimedia(id),
+      references Multimedia(id)
+      on delete set null,
 
     constraint fk_utilisateur_imagefond
       foreign key (image_fond)
       references Multimedia(id)
+      on delete set null
  ) engine=InnoDB;
 
 -- Relation entre 2 utilisateurs
@@ -40,11 +42,13 @@ create table Relation (
 
     constraint fk_relation_utilisateur1
       foreign key (utilisateur1)
-      references Utilisateur(pseudo),
+      references Utilisateur(pseudo)
+      on delete cascade,
 
     constraint fk_relation_utilisateur2
       foreign key (utilisateur2)
       references Utilisateur(pseudo)
+      on delete cascade
  ) engine=InnoDB;
 
 -- Gestion des albums
@@ -56,6 +60,7 @@ create table Album (
     constraint fk_album_utilisateur
       foreign key (utilisateur)
       references Utilisateur(pseudo)
+      on delete cascade
  ) engine=InnoDB;
 
 create table AlbumMultimedia (
@@ -65,11 +70,13 @@ create table AlbumMultimedia (
 
     constraint fk_albummultimedia_album
       foreign key (album)
-      references Album(id),
+      references Album(id)
+      on delete cascade,
 
     constraint fk_albummultimedia_multimedia
       foreign key (multimedia)
       references Multimedia(id)
+      on delete cascade
  ) engine=InnoDB;
 
 -- Gestion CV
@@ -85,6 +92,7 @@ create table Stage (
     constraint fk_stage_utilisateur
       foreign key (utilisateur)
       references Utilisateur(pseudo)
+      on delete cascade
  ) engine=InnoDB;
 
 create table Formation (
@@ -98,6 +106,7 @@ create table Formation (
     constraint fk_formation_utilisateur
       foreign key (utilisateur)
       references Utilisateur(pseudo)
+      on delete cascade
  ) engine=InnoDB;
 
 -- Gestion des posts
@@ -110,26 +119,39 @@ create table Post (
     constraint fk_post_utilisateur
       foreign key (auteur)
       references Utilisateur(pseudo)
+      on delete cascade
  ) engine=InnoDB;
 
 create table Publication (
-    post int not null auto_increment primary key,
+    post int not null primary key,
     lieu varchar(250),
     public bool not null default false,
     multimedia int,
 
+    constraint fk_publication_post
+      foreign key (post)
+      references Post(id)
+      on delete cascade,
+
     constraint fk_publication_multimedia
       foreign key (multimedia)
       references Multimedia(id)
+      on delete set null
  ) engine=InnoDB;
 
 create table Commentaire (
     post int not null auto_increment primary key,
     cible int not null,
 
-    constraint fk_commentaire_multimedia
+    constraint fk_commentaire_post
       foreign key (post)
       references Post(id)
+      on delete cascade,
+
+    constraint fk_commentaire_cible
+      foreign key (post)
+      references Post(id)
+      on delete cascade
  ) engine=InnoDB;
 
 create table Partage (
@@ -138,13 +160,15 @@ create table Partage (
     publication int not null,
     jaime boolean not null default false,
 
-  constraint fk_partage_utilisateur
-    foreign key (utilisateur)
-    references Utilisateur(pseudo),
+    constraint fk_partage_utilisateur
+      foreign key (utilisateur)
+      references Utilisateur(pseudo)
+      on delete cascade,
 
-  constraint fk_partage_publication
-    foreign key (publication)
-    references Publication(post)
+    constraint fk_partage_publication
+      foreign key (publication)
+      references Publication(post)
+      on delete cascade
  ) engine=InnoDB;
 
 -- Gestion de la messagerie
@@ -160,25 +184,29 @@ create table GroupeUtilisateur (
 
     constraint fk_groupeutilisateur_groupe
       foreign key (groupe)
-      references Groupe(id),
+      references Groupe(id)
+      on delete cascade,
 
     constraint fk_groupeutilisateur_utilisateur
       foreign key (utilisateur)
       references Utilisateur(pseudo)
+      on delete cascade
  ) engine=InnoDB;
 
 create table Message (
     id int not null auto_increment primary key,
     groupe int not null,
-    auteur varchar(100) not null,
-    message varchar(500),
+    auteur varchar(100),
+    message varchar(500) not null,
     date datetime default current_timestamp not null,
 
     constraint fk_message_groupe
       foreign key (groupe)
-      references Groupe(id),
+      references Groupe(id)
+      on delete cascade,
 
     constraint fk_message_utilisateur
       foreign key (auteur)
       references Utilisateur(pseudo)
+      on delete set null
 ) engine=InnoDB;

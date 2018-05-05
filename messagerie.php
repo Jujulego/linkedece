@@ -136,9 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <form method="post">
                             <div id="ecrire">
                                 <textarea placeholder="Votre message..." name="message"></textarea>
-                                <button type="submit" class="btn btn-primary" class="btn btn-primary" value="Envoyer"
-                                        float="right" width="7px" height="7px">Envoyer
-                                </button>
+                                <input type="submit" class="btn btn-primary" class="btn btn-primary" value="Envoyer" />
                             </div>
                         </form>
                         <?php

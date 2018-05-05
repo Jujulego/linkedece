@@ -7,25 +7,33 @@
  */
 session_start();
 
+// connecté ?
+if (!isset($_SESSION["pseudo"])) {
+    header("Location: connexion.php", true, 303);
+    exit();
+}
 
-// Récupération des infos utilisateur
+// Connexion à la base de données
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-$req = $bdd->prepare(
-    "select utilisateur.type as type,email,nom,prenom,fichier
-                      from utilisateur left join multimedia on utilisateur.photo_profil = multimedia.id
-                      where pseudo = ?"
-);
+
+// Admin ?
+$req = $bdd->prepare("select type from utilisateur where pseudo = ?");
 $req->execute(array($_SESSION["pseudo"]));
-$infos = $req->fetch();
+$admin = $req->fetch()["type"] == "adm";
 $req->closeCursor();
 
-// nombre de relations
-$req = $bdd->prepare("select count(*) as nbrel from relation where utilisateur1 = :pseudo xor utilisateur2 = :pseudo");
-$req->execute([":pseudo" => $_SESSION["pseudo"]]);
-$nbrel = $req->fetch()['nbrel'];
-$req->closeCursor();
+if (!$admin) {
+    header("Location: accueil.php", true, 303);
+    exit();
+}
+
+// Anéantissement !!!
+if (isset($_GET["pseudo"])) {
+    $req = $bdd->prepare("delete from utilisateur where pseudo = ?");
+    $req->execute(array($_GET["pseudo"]));
+    $req->closeCursor();
+}
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,9 +81,12 @@ $req->closeCursor();
                             <?php echo htmlspecialchars($utilisateur['prenom'] . ' ' . $utilisateur['nom']) ?>
                         </a>
                         <div>
-                            <img src="images/supprimer.png" width="30px" height="30px" alt="suppression"/>
+                            <a href="reseauadmin.php?<?php echo http_build_query(["pseudo" => $utilisateur["pseudo"]]) ?>">
+                                <img src="images/supprimer.png" width="30px" height="30px" alt="suppression"/>
+                            </a>
                             <a href="modifierprofil.php?<?php echo http_build_query(["pseudo" => $utilisateur["pseudo"]]) ?>">
-                                <img src="images/modifier.png" width="23px" height="23px" alt="modification"/></a>
+                                <img src="images/modifier.png" width="23px" height="23px" alt="modification"/>
+                            </a>
                         </div>
                     </article>
                     <?php
