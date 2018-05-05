@@ -1,0 +1,47 @@
+/*
+ * style_post_commentaire.css
+ *
+ * Style de la page de commentaire sur post
+ */
+#conteneur {
+    display: flex;
+}
+
+#profil {
+    padding: 12px;
+    background: #434343;
+
+    width: 15%;
+}
+
+#murcom {
+    flex: 1;
+    padding: 12px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#murcom article {
+    background: #eee;
+    color: black;
+    display: flex;
+
+    margin: 8px;
+    padding: 12px;
+    box-shadow: #222 4px 4px 4px;
+    border-radius: 4px;
+}
+
+
+
+
+#murcom a {
+    color: #434343;
+    text-decoration: none;
+
+
+
+}
+
+

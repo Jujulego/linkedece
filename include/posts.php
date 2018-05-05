@@ -51,8 +51,8 @@ while ($post = $posts->fetch()) {
                 }
                 ?>
 
-                <a href="http://ton lien">
-                    <img src="images/commentaire.png" width="30px" height="30px" alt="commentaire">
+                <a href="post_commentaire.php">
+                    <img src="images/commentaire.png" width="30px" height="30px" alt="commentaire" >
                 </a>
 
                 <?php if ($partagee) {

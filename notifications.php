@@ -59,7 +59,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "")
                 <p>Titre notif / machin a publié dans le fil d'actualité</p>
                 <p>Contenu de la notification</p>
             </div>
-            <p><a href="contenu_notif.php">Voir la publication (aller le fil d'actualité)</a></p>
+            <p><a href="post_commentaire.php">Voir la publication (aller le fil d'actualité)</a></p>
         </article>
 
         <article class="notif">
@@ -77,7 +77,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "")
                 <p>Titre notif / machin a commenté votre publication</p>
                 <p>Contenu de la notification</p>
             </div>
-            <p><a href="contenu_notif.php">Voir le commentaire</a></p>
+            <p><a href="post_commentaire.php">Voir le commentaire</a></p>
 
         </article>
 
