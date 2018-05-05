@@ -68,10 +68,10 @@ $req->closeCursor();
             <article class="liencontact">
                 <img src="images/profil.png" width="60px" height="60px" alt="Photo de profil par défault" />
                 <a href="#page de profil du contact">Prenom Nom</a>
-                <img src="images/supprimer.png" width="30px" height="30px" alt="Photo de notification" />
+                <img src="images/supprimer.png" width="30px" height="30px" alt="suppression" />
                 <div class="modifier">
                     <a hred="modifierprofil.php">
-                        <img src="images/modifier.png" width="23px" height="23px" alt="Photo de notification" />
+                        <img src="images/modifier.png" width="23px" height="23px" alt="modification" />
                     </a>
                 </div>
             </article>
