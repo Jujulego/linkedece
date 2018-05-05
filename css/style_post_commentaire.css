@@ -33,15 +33,16 @@
     border-radius: 4px;
 }
 
-
-
-
 #murcom a {
     color: #434343;
     text-decoration: none;
-
-
-
 }
 
+.commentprofil {
+    width: 150px;
+    margin: 12px;
+}
 
+.commentcontenu {
+    flex: 1;
+}

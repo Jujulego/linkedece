@@ -7,7 +7,7 @@
  */
 
 while ($post = $posts->fetch()) {
-    // Check partagé
+    // Check partage
     $reqp = $bdd->prepare("select jaime from partage where utilisateur = ? and publication = ?");
     $reqp->execute(array(
         $_SESSION["pseudo"],
@@ -24,7 +24,7 @@ while ($post = $posts->fetch()) {
             <img src="<?php echo ($post["photoprofil"] == null ? "images/profil.png" : "media/" . $post["photoprofil"]) ?>" width="60px" height="60px"
                  alt="Photo de profil par défault"/>
             <p>
-                <a href="profil.php?<?php echo http_build_query(["pseudo"=>$post["auteur"]]) ?>">
+                <a href="profil.php?<?php echo http_build_query(["pseudo" => $post["auteur"]]) ?>">
                     <?php echo htmlspecialchars($post['prenom'] . ' ' . $post['nom']) ?>
                 </a>
             </p>
@@ -51,7 +51,7 @@ while ($post = $posts->fetch()) {
                 }
                 ?>
 
-                <a href="post_commentaire.php">
+                <a href="post_commentaire.php?<?php echo http_build_query(["post" => $post["id"]]); ?>">
                     <img src="images/commentaire.png" width="30px" height="30px" alt="commentaire" >
                 </a>
 
