@@ -6,6 +6,7 @@
  * Time: 04:35
  */
 session_start();
+include("include/notifications.php");
 
 // connecté ?
 if (!isset($_SESSION["pseudo"])) {
@@ -15,83 +16,131 @@ if (!isset($_SESSION["pseudo"])) {
 
 // Récupération des infos utilisateur
 $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-?>
 
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
+    accepter_ami($bdd, $_POST["notif"], $_SESSION["pseudo"], $_POST["pseudo"]);
+}
+
+?>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
-    <link rel="stylesheet" href="css/style_general.css" />
-    <link rel="stylesheet" href="css/style_menuhaut.css" />
-    <link rel="stylesheet" href="css/style_notifications.css" />
+        <link rel="stylesheet" href="css/style_general.css" />
+        <link rel="stylesheet" href="css/style_menuhaut.css" />
+        <link rel="stylesheet" href="css/style_notifications.css" />
 
-    <title>Notifications</title>
-</head>
+        <title>Notifications</title>
+    </head>
 
-<body>
-<?php include("include/menuhaut.php") ?>
+    <body>
+        <?php include("include/menuhaut.php") ?>
 
-<div id="conteneur">
-    <?php include("include/panneauprofil.php"); ?>
-    <section id="murnotif">
-        <article class="notif">
+        <div id="conteneur">
+            <?php include("include/panneauprofil.php"); ?>
 
-            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-            <div class="contenu">
-                <p>Titre notif / demande d'ajout</p>
-                <p>Contenu de la notification</p>
-            </div>
-            <p><a href="contenu_notif.php">Accepter la demande d'ajout</a></p>
-        </article>
-        <article class="notif">
-            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-            <div class="contenu">
-                <p>Titre notif / machin a accepté votre demande d'ajout</p>
-                <p>Contenu de la notification</p>
-            </div>
+            <section id="murnotif">
+                <?php
+                    $req = $bdd->prepare(
+                        "select id,emetteur,cible,type,post
+                                    from notification
+                                    where cible = ?
+                                    order by date desc");
+                    $req->execute(array(
+                        $_SESSION["pseudo"]
+                    ));
 
-        </article>
-        <article class="notif">
-            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-            <div class="contenu">
-                <p>Titre notif / machin a publié dans le fil d'actualité</p>
-                <p>Contenu de la notification</p>
-            </div>
-            <p><a href="post_commentaire.php">Voir la publication (aller le fil d'actualité)</a></p>
-        </article>
+                    while ($notif = $req->fetch()) {
+                        switch ($notif["type"]) {
+                            case 'da':
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><?php echo $notif["emetteur"]; ?> vous demande en ami</p>
+                                    </div>
+                                    <form method="post">
+                                        <input type="hidden" name="pseudo" value="<?php echo $notif["emetteur"]; ?>">
+                                        <input type="hidden" name="notif" value="<?php echo $notif["id"]; ?>">
+                                        <input type="submit" value="Accepter la demande d'ajout" />
+                                    </form>
+                                </article>
+                                <?php
+                                break;
 
-        <article class="notif">
-            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-            <div class="contenu">
-                <p>Titre notif / machin a aimé votre publication</p>
-                <p>Contenu de la notification</p>
-            </div>
+                            case 'aa':
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><?php echo $notif["emetteur"]; ?> a accepté votre demande d'ajout</p>
+                                    </div>
 
-        </article>
+                                </article>
+                                <?php
+                                break;
 
-        <article class="notif">
-            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-            <div class="contenu">
-                <p>Titre notif / machin a commenté votre publication</p>
-                <p>Contenu de la notification</p>
-            </div>
-            <p><a href="post_commentaire.php">Voir le commentaire</a></p>
+                            case 'pu':
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><?php echo $notif["emetteur"]; ?> a publié dans le fil d'actualité</p>
+                                    </div>
+                                    <p><a href="post_commentaire.php?<?php echo http_build_query(["post" => $notif["post"]]) ?>">Voir la publication (aller le fil d'actualité)</a></p>
+                                </article>
+                                <?php
+                                break;
 
-        </article>
+                            case 'li':
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><?php echo $notif["emetteur"]; ?> a aimé votre publication</p>
+                                    </div>
 
+                                </article>
+                                <?php
+                                break;
 
-        <article class="notif">
-            <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification" />
-            <div class="contenu">
-                <p>Titre notif / machin a partagé votre publication</p>
-                <p>Contenu de la notification</p>
-            </div>
+                            case 'co':
+                                $reqc = $bdd->prepare("select cible from commentaire where post = ?");
+                                $reqc->execute(array($notif["post"]));
+                                $comm = $reqc->fetch();
+                                $reqc->closeCursor();
 
-        </article>
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><?php echo $notif["emetteur"]; ?> a commenté votre publication</p>
+                                    </div>
+                                    <p><a href="post_commentaire.php?<?php echo http_build_query(["post" => $comm["cible"]]) . '#' . $notif["post"] ?>">Voir le commentaire</a></p>
 
-    </section>
-</div>
-</body>
+                                </article>
+                                <?php
+                                break;
+
+                            case 'pa':
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><?php echo $notif["emetteur"]; ?> a partagé votre publication</p>
+                                    </div>
+
+                                </article>
+                            <?php
+                        }
+                    }
+
+                    $req->closeCursor();
+                ?>
+            </section>
+        </div>
+    </body>
 </html>

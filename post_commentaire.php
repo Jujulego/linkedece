@@ -6,6 +6,7 @@
  * Time: 04:06
  */
 session_start();
+include("include/notifications.php");
 
 // connecté ?
 if (!isset($_SESSION["pseudo"])) {
@@ -58,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $id,
         $_GET["post"]
     ));
+
+    notif_comment($bdd, $_SESSION["pseudo"], $post["auteur"], $id);
 }
 
 ?>
@@ -182,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     ));
                     while ($comm = $req->fetch()) {
                         ?>
-                        <article class="commentaire">
+                        <article class="commentaire" id="<?php echo $comm["id"]; ?>">
                             <div class="commentprofil">
                                 <p>
                                     <a href="profil.php?<?php echo http_build_query(["pseudo" => $comm["auteur"]]) ?>">

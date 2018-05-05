@@ -210,3 +210,28 @@ create table Message (
       references Utilisateur(pseudo)
       on delete set null
 ) engine=InnoDB;
+
+-- Notifications
+create table Notification (
+    id int not null auto_increment primary key,
+    date datetime default current_timestamp not null,
+    type varchar(2) not null,
+    emetteur varchar(100) not null,
+    cible varchar(100) not null,
+    post int,
+
+    constraint fk_notification_emetteur
+      foreign key (emetteur)
+      references Utilisateur(pseudo)
+      on delete cascade,
+
+    constraint fk_notification_cible
+      foreign key (cible)
+      references Utilisateur(pseudo)
+      on delete cascade,
+
+    constraint fk_notification_post
+      foreign key (post)
+      references Post(id)
+      on delete cascade
+) engine=InnoDB;

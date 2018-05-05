@@ -6,6 +6,7 @@
  * Time: 10:03
  */
 session_start();
+include("include/notifications.php");
 
 // connecté ?
 if (!isset($_SESSION["pseudo"])) {
@@ -26,6 +27,18 @@ $req->execute(array(
     $_GET["post"]
 ));
 $req->closeCursor();
+
+// notification
+$req = $bdd->prepare("select auteur from post where id = ?");
+$req->execute(array($_GET["post"]));
+$post = $req->fetch();
+$req->closeCursor();
+
+if (isset($_GET["like"])) {
+    notif_like($bdd, $_SESSION["pseudo"], $post["auteur"], $_GET["post"]);
+} else {
+    notif_partage($bdd, $_SESSION["pseudo"], $post["auteur"], $_GET["post"]);
+}
 
 // Retour vers l'accueil
 header("Location: accueil.php#". $_GET["post"], true, 303);

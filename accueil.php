@@ -6,6 +6,7 @@
  * Time: 11:33
  */
 session_start();
+include("include/notifications.php");
 
 // connecté ?
 if (!isset($_SESSION["pseudo"])) {
@@ -72,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         ));
 
         $envoye = false;
+        notif_publier($bdd, $_SESSION["pseudo"], $id);
     }
 }
 

@@ -6,11 +6,17 @@
  * Time: 17:17
  */
 session_start();
+include("include/notifications.php");
 
 // connecté ?
 if (!isset($_SESSION["pseudo"])) {
     header("Location: connexion.php", true, 303);
     exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
+    demande_ami($bdd, $_SESSION["pseudo"], $_POST["pseudo"]);
 }
 ?>
 <!DOCTYPE html>
