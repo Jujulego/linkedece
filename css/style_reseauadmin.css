@@ -15,9 +15,6 @@
     color: white;
     text-decoration: none;
     padding: 10px;
-
-
-
 }
 #btnajoutuser a:visited {
     background-color: #434343;
@@ -31,15 +28,12 @@
     color: black;
     text-decoration: none;
     padding: 10px;
-
-
 }
 
 .typemembre
 {
     text-align: center;
-    margin-left: 400px;
-    margin-top: -70px;
+    margin: 12px;
 }
 
 #murreseauadmin {

@@ -35,10 +35,15 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
     ));
 
     if ($req->errorCode() == 0) {
-        // Connecté !!!
-        $_SESSION['pseudo'] = $_POST['pseudo'];
-        header("Location: accueil.php", true, 303);
-        exit();
+        if (isset($_GET["admin"])) {
+            header("Location: reseauadmin.php", true, 303);
+            exit();
+        } else {
+            // Connecté !!!
+            $_SESSION['pseudo'] = $_POST['pseudo'];
+            header("Location: accueil.php", true, 303);
+            exit();
+        }
     } else {
         $req = $bdd->prepare("select * from utilisateur where pseudo=?");
         $req->execute(array($_POST["pseudo"]));

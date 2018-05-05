@@ -53,4 +53,13 @@ $req->closeCursor();
     ?></p>
     <p><?php echo htmlspecialchars($infos['email']) ?></p>
     <p><?php echo $nbrel . ' relation' . ($nbrel != 1 ? 's' : '') ?></p>
+    <?php
+        if ($infos["type"] == "adm") {
+            ?>
+                <ul>
+                    <li><a href="reseauadmin.php">Gestion utilisateurs</a></li>
+                </ul>
+            <?php
+        }
+    ?>
 </section>
