@@ -30,6 +30,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "")
 $req = $bdd->prepare("select type from utilisateur where pseudo = ?");
 $req->execute(array($_SESSION["pseudo"]));
 $admin = $req->fetch()["type"] == "adm";
+$etudiant = $req->fetch()["type"] == "etu";
 $req->closeCursor();
 
 if ($_GET["pseudo"] != $_SESSION["pseudo"] && !$admin) {
@@ -141,7 +142,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <td><label for="categorie">Catégorie</label></td>
                         <td>
                             <select id="categorie" name="categorie">
-                                <option value="etu" <?php if ($infos["type"] == "etu") echo "selected" ?>>étudiant</option>
+                                <?php
+                                    if ($admin or $etudiant) {
+                                        ?>
+                                        <option value="etu" <?php if ($infos["type"] == "etu") echo "selected" ?>>étudiant</option>
+                                        <?php
+                                    }
+                                ?>
                                 <option value="pro" <?php if ($infos["type"] == "pro") echo "selected" ?>>professeur</option>
                                 <option value="par" <?php if ($infos["type"] == "par") echo "selected" ?>>partenaire</option>
                                 <?php

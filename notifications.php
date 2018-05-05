@@ -19,7 +19,16 @@ $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "")
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
-    accepter_ami($bdd, $_POST["notif"], $_SESSION["pseudo"], $_POST["pseudo"]);
+
+    if (isset($_POST["notif"], $_POST["pseudo"])) {
+        accepter_ami($bdd, $_POST["notif"], $_SESSION["pseudo"], $_POST["pseudo"]);
+    } else if (isset($_POST["pseudo"], $_POST["offre"])) {
+        if (isset($_POST["accepte"])) {
+            notif_accepter($bdd, $_SESSION["pseudo"], $_POST["pseudo"], $_POST["offre"]);
+        } else {
+            notif_refuser($bdd, $_SESSION["pseudo"], $_POST["pseudo"], $_POST["offre"]);
+        }
+    }
 }
 
 ?>
@@ -45,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <section id="murnotif">
                 <?php
                     $req = $bdd->prepare(
-                        "select id,emetteur,cible,type,post
+                        "select id,emetteur,cible,type,post,offre
                                     from notification
                                     where cible = ?
                                     order by date desc");
@@ -60,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <article class="notif">
                                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
                                     <div class="contenu">
-                                        <p><?php echo $notif["emetteur"]; ?> vous demande en ami</p>
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> vous demande en ami</p>
                                     </div>
                                     <form method="post">
                                         <input type="hidden" name="pseudo" value="<?php echo $notif["emetteur"]; ?>">
@@ -76,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <article class="notif">
                                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
                                     <div class="contenu">
-                                        <p><?php echo $notif["emetteur"]; ?> a accepté votre demande d'ajout</p>
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> a accepté votre demande d'ajout</p>
                                     </div>
 
                                 </article>
@@ -88,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <article class="notif">
                                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
                                     <div class="contenu">
-                                        <p><?php echo $notif["emetteur"]; ?> a publié dans le fil d'actualité</p>
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> a publié dans le fil d'actualité</p>
                                     </div>
                                     <p><a href="post_commentaire.php?<?php echo http_build_query(["post" => $notif["post"]]) ?>">Voir la publication (aller le fil d'actualité)</a></p>
                                 </article>
@@ -100,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <article class="notif">
                                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
                                     <div class="contenu">
-                                        <p><?php echo $notif["emetteur"]; ?> a aimé votre publication</p>
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> a aimé votre publication</p>
                                     </div>
 
                                 </article>
@@ -117,10 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <article class="notif">
                                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
                                     <div class="contenu">
-                                        <p><?php echo $notif["emetteur"]; ?> a commenté votre publication</p>
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> a commenté votre publication</p>
                                     </div>
                                     <p><a href="post_commentaire.php?<?php echo http_build_query(["post" => $comm["cible"]]) . '#' . $notif["post"] ?>">Voir le commentaire</a></p>
-
                                 </article>
                                 <?php
                                 break;
@@ -130,9 +138,70 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <article class="notif">
                                     <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
                                     <div class="contenu">
-                                        <p><?php echo $notif["emetteur"]; ?> a partagé votre publication</p>
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> a partagé votre publication</p>
                                     </div>
+                                </article>
+                                <?php
+                                break;
 
+                            case 'po':
+                                $reqo = $bdd->prepare("select id,poste from offre where id = ?");
+                                $reqo->execute(array($notif["offre"]));
+                                $offre = $reqo->fetch();
+                                $reqo->closeCursor();
+
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notisfication"/>
+                                    <div class="contenu">
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> a postulé à une de vos offres</p>
+                                        <p>Offre concernée : <?php echo $offre["poste"] ?></p>
+                                    </div>
+                                    <form method="post">
+                                        <input type="hidden" name="pseudo" value="<?php echo $notif["emetteur"]; ?>" />
+                                        <input type="hidden" name="offre" value="<?php echo $offre["id"]; ?>" />
+                                        <input type="hidden" name="accepte" value="1" />
+                                        <input type="submit" value="Accepter" />
+                                    </form>
+                                    <form method="post">
+                                        <input type="hidden" name="pseudo" value="<?php echo $notif["emetteur"]; ?>" />
+                                        <input type="hidden" name="offre" value="<?php echo $offre["id"]; ?>" />
+                                        <input type="submit" value="Refuser" />
+                                    </form>
+                                </article>
+                                <?php
+                                break;
+
+                            case 'ap':
+                                $reqo = $bdd->prepare("select poste from offre where id = ?");
+                                $reqo->execute(array($notif["offre"]));
+                                $offre = $reqo->fetch();
+                                $reqo->closeCursor();
+
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> vous a accepté sur l'offre</p>
+                                        <p>Offre concernée : <?php echo $offre["poste"] ?></p>
+                                    </div>
+                                </article>
+                                <?php
+                                break;
+
+                            case 'rp':
+                                $reqo = $bdd->prepare("select poste from offre where id = ?");
+                                $reqo->execute(array($notif["offre"]));
+                                $offre = $reqo->fetch();
+                                $reqo->closeCursor();
+
+                                ?>
+                                <article class="notif">
+                                    <img src="images/notif.png" width="60px" height="60px" alt="Photo de notification"/>
+                                    <div class="contenu">
+                                        <p><a href="profil.php?<?php echo http_build_query(["pseudo" => $notif["emetteur"]]) ?>"><?php echo $notif["emetteur"]; ?></a> vous a refusé l'offre</p>
+                                        <p>Offre concernée : <?php echo $offre["poste"] ?></p>
+                                    </div>
                                 </article>
                             <?php
                         }

@@ -211,6 +211,38 @@ create table Message (
       on delete set null
 ) engine=InnoDB;
 
+-- Offres et postulations
+create table Offre (
+    id int not null auto_increment primary key,
+    date datetime default current_timestamp not null,
+    auteur varchar(100) not null,
+    poste varchar(250) not null,
+    entreprise varchar(250) not null,
+    secteur varchar(250) not null,
+    acceptee boolean not null default false,
+
+    constraint fk_offre_utilisateur
+      foreign key (auteur)
+      references Utilisateur(pseudo)
+      on delete cascade
+) engine=InnoDB;
+
+create table Postulation (
+    id int not null auto_increment primary key,
+    postulant varchar(100) not null,
+    offre int not null,
+
+    constraint fk_postulation_utilisateur
+    foreign key (postulant)
+    references Utilisateur(pseudo)
+      on delete cascade,
+
+    constraint fk_postulation_offre
+      foreign key (offre)
+      references Offre(id)
+      on delete cascade
+) engine=InnoDB;
+
 -- Notifications
 create table Notification (
     id int not null auto_increment primary key,
@@ -219,6 +251,7 @@ create table Notification (
     emetteur varchar(100) not null,
     cible varchar(100) not null,
     post int,
+    offre int,
 
     constraint fk_notification_emetteur
       foreign key (emetteur)
@@ -233,5 +266,10 @@ create table Notification (
     constraint fk_notification_post
       foreign key (post)
       references Post(id)
+      on delete cascade,
+
+    constraint fk_notification_offre
+      foreign key (offre)
+      references Offre(id)
       on delete cascade
 ) engine=InnoDB;

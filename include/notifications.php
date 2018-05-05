@@ -16,7 +16,7 @@ function suppr_notif($bdd, $notif) {
 }
 
 function demande_ami($bdd, $emetteur, $cible) {
-    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'da', ?, ?, null)");
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'da', ?, ?, null, null)");
     $req->execute(array(
         $emetteur,
         $cible
@@ -25,7 +25,7 @@ function demande_ami($bdd, $emetteur, $cible) {
 }
 
 function accepter_ami($bdd, $notif, $emetteur, $cible) {
-    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'aa', ?, ?, null)");
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'aa', ?, ?, null, null)");
     $req->execute(array(
         $emetteur,
         $cible
@@ -52,7 +52,7 @@ function notif_publier($bdd, $emetteur, $post) {
     ]);
 
     while ($ami = $req->fetch()) {
-        $reqa = $bdd->prepare("insert into notification values (null, current_timestamp, 'pu', ?, ?, ?)");
+        $reqa = $bdd->prepare("insert into notification values (null, current_timestamp, 'pu', ?, ?, ?, null)");
         $reqa->execute(array(
             $emetteur,
             $ami["pseudo"],
@@ -65,7 +65,7 @@ function notif_publier($bdd, $emetteur, $post) {
 }
 
 function notif_partage($bdd, $emetteur, $cible, $post) {
-    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'pa', ?, ?, ?)");
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'pa', ?, ?, ?, null)");
     $req->execute(array(
         $emetteur,
         $cible,
@@ -75,7 +75,7 @@ function notif_partage($bdd, $emetteur, $cible, $post) {
 }
 
 function notif_like($bdd, $emetteur, $cible, $post) {
-    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'li', ?, ?, ?)");
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'li', ?, ?, ?, null)");
     $req->execute(array(
         $emetteur,
         $cible,
@@ -85,11 +85,87 @@ function notif_like($bdd, $emetteur, $cible, $post) {
 }
 
 function notif_comment($bdd, $emetteur, $cible, $post) {
-    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'co', ?, ?, ?)");
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'co', ?, ?, ?, null)");
     $req->execute(array(
         $emetteur,
         $cible,
         $post
+    ));
+    $req->closeCursor();
+}
+
+function notif_postuler($bdd, $emetteur, $cible, $offre) {
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'po', ?, ?, null, ?)");
+    $req->execute(array(
+        $emetteur,
+        $cible,
+        $offre
+    ));
+    $req->closeCursor();
+}
+
+function notif_accepter($bdd, $emetteur, $cible, $offre) {
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'ap', ?, ?, null, ?)");
+    $req->execute(array(
+        $emetteur,
+        $cible,
+        $offre
+    ));
+    $req->closeCursor();
+
+    // On refuse toutes les autres postulations
+    $req = $bdd->prepare("select postulant from postulation where offre = ? and postulant != ?");
+    $req->execute(array(
+        $offre,
+        $cible
+    ));
+
+    while ($p = $req->fetch()) {
+        notif_refuser($bdd, $emetteur, $p["postulant"], $offre);
+    }
+
+    $req->closeCursor();
+
+    // On marque la postulation comme acceptée
+    $req = $bdd->prepare("update offre set acceptee=true where id = ?");
+    $req->execute(array(
+        $offre
+    ));
+    $req->closeCursor();
+
+    // on supprime la notification
+    $req = $bdd->prepare("delete from notification where offre = ? and emetteur = ? and cible = ? and type='po'");
+    $req->execute(array(
+        $offre,
+        $cible,
+        $emetteur
+    ));
+    $req->closeCursor();
+}
+
+function notif_refuser($bdd, $emetteur, $cible, $offre) {
+    $req = $bdd->prepare("insert into notification values (null, current_timestamp, 'rp', ?, ?, null, ?)");
+    $req->execute(array(
+        $emetteur,
+        $cible,
+        $offre
+    ));
+    $req->closeCursor();
+
+    // on supprime la postulation
+    $req = $bdd->prepare("delete from postulation where offre = ? and postulant = ?");
+    $req->execute(array(
+        $offre,
+        $cible
+    ));
+    $req->closeCursor();
+
+    // on supprime la notification
+    $req = $bdd->prepare("delete from notification where offre = ? and emetteur = ? and cible = ? and type='po'");
+    $req->execute(array(
+        $offre,
+        $cible,
+        $emetteur
     ));
     $req->closeCursor();
 }
