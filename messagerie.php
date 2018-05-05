@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $req->execute(array($_GET["id"]));
 
                         ?>
-                        <p>Groupe : <?php echo $groupe; ?></p>
+                        <p>Groupe : <?php echo $groupe; ?><a href="ajoutergroupe.php?<?php echo http_build_query(["groupe" => $_GET["id"]]); ?>">Inviter</a></p>
                         <hr/>
                         <div id="conv">
                             <?php

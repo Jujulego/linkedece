@@ -25,7 +25,7 @@
     flex-wrap: wrap;
 }
 
-#murreseau article {
+#murreseau form {
     background: #eee;
     color: black;
     display: flex;

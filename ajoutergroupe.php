@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Damien
- * Date: 04/05/2018
- * Time: 17:17
+ * User: julien
+ * Date: 05/05/2018
+ * Time: 11:36
  */
 session_start();
 
@@ -11,6 +11,19 @@ session_start();
 if (!isset($_SESSION["pseudo"])) {
     header("Location: connexion.php", true, 303);
     exit();
+}
+
+// Envoi du formulaire ?
+$bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "");
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["pseudo"], $_GET["groupe"])) {
+    // Ajout au groupe
+    $req = $bdd->prepare("insert into groupeutilisateur values (null, ?, ?)");
+    $req->execute(array(
+        $_GET["groupe"],
+        $_POST["pseudo"]
+    ));
+    $req->closeCursor();
 }
 ?>
 <!DOCTYPE html>
@@ -35,19 +48,16 @@ if (!isset($_SESSION["pseudo"])) {
                     $req = $bdd->prepare(
                         "select pseudo,nom,prenom,fichier
                                     from utilisateur
-                                      left join multimedia on photo_profil=id
-                                    where pseudo not in (select utilisateur1 as ami
-                                                           from relation
-                                                           where utilisateur2 = :pseudo
-                                                             xor utilisateur1 = :pseudo
-                                                   union select utilisateur2 as ami
-                                                           from relation
-                                                           where utilisateur1 = :pseudo
-                                                             xor utilisateur2 = :pseudo)
-                                    order by rand()
-                                    limit 20"
+                                      inner join (select utilisateur2 as utilisateur from relation where utilisateur1 = :pseudo
+                                            union select utilisateur1 as utilisateur from relation where utilisateur2 = :pseudo)
+                                        as amis on amis.utilisateur = pseudo
+                                      left join multimedia on photo_profil = id
+                                    where pseudo not in (select utilisateur from groupeutilisateur where groupe = :groupe)"
                     );
-                    $req->execute(["pseudo" => $_SESSION["pseudo"]]);
+                    $req->execute([
+                        "pseudo" => $_SESSION["pseudo"],
+                        "groupe" => $_GET["groupe"]
+                    ]);
 
                     while ($ami = $req->fetch()) {
                         ?>
@@ -57,7 +67,7 @@ if (!isset($_SESSION["pseudo"])) {
                             <a href="profil.php?<?php echo http_build_query(["pseudo" => $ami["pseudo"]]) ?>">
                                 <?php echo htmlspecialchars($ami['prenom'] . ' ' . $ami['nom']) ?>
                             </a>
-                            <input type="submit" value="Ajouter à mon réseau">
+                            <input type="submit" value="Ajouter au groupe" />
                         </form>
                         <?php
                     }

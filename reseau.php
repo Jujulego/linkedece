@@ -49,16 +49,17 @@ $bdd = new PDO("mysql:host=localhost;dbname=linkedece;charset=utf8", "root", "")
                         );
                         $req->execute(["pseudo" => $_SESSION["pseudo"]]);
 
-                        while ($amis = $req->fetch()) {
+                        while ($ami = $req->fetch()) {
                             ?>
                             <article class="liencontact">
-                                <img src="<?php echo ($amis["fichier"] == null ? "images/profil.png" : "media/" . $amis["fichier"]) ?>" width="60px" height="60px" alt="Photo de profil par défault"/>
-                                <a href="profil.php?<?php echo http_build_query(["pseudo" => $amis["pseudo"]]) ?>">
-                                    <?php echo htmlspecialchars($amis['prenom'] . ' ' . $amis['nom']) ?>
+                                <img src="<?php echo ($ami["fichier"] == null ? "images/profil.png" : "media/" . $ami["fichier"]) ?>" width="60px" height="60px" alt="Photo de profil par défault"/>
+                                <a href="profil.php?<?php echo http_build_query(["pseudo" => $ami["pseudo"]]) ?>">
+                                    <?php echo htmlspecialchars($ami['prenom'] . ' ' . $ami['nom']) ?>
                                 </a>
                             </article>
                             <?php
                         }
+                        $req->closeCursor();
                     ?>
                 </section>
             </div>
