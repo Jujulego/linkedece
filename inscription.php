@@ -59,9 +59,13 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
 <html>
     <head>
         <meta charset="utf-8" />
+        <link rel="stylesheet" href="css/style_inscription.css" />
+        <link rel="stylesheet" href="css/style_general.css" />
         <title>Inscription</title>
     </head>
     <body>
+
+    <div class="rectangle">
         <h1>Inscription
             <?php
                 switch ($_POST["categorie"]) {
@@ -76,6 +80,7 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
                         break;
                 }
             ?>
+
         </h1>
 
         <form method="post">
@@ -154,7 +159,7 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
                     ?>
                 </tr>
                 <tr>
-                    <td><label for="poste">Poste</label></td>
+                    <td><label for="poste" title="Votre poste ou statut (Etudiant, Salarié etc..) ">Poste</label></td>
                     <td><input id="poste" type="text" name="poste"  value="<?php if (isset($_POST["poste"])) { echo $_POST["poste"]; } ?>" /></td>
                     <?php
                     if (isset($_POST["rempli"]) && !isset($_POST["poste"])) {
@@ -165,7 +170,7 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
                     ?>
                 </tr>
                 <tr>
-                    <td><label for="secteur">Secteur</label></td>
+                    <td><label for="secteur" title="Le domaine dans lequel vous travaillez/etudiez">Secteur</label></td>
                     <td><input id="secteur" type="text" name="secteur"  value="<?php if (isset($_POST["secteur"])) { echo $_POST["secteur"]; } ?>" /></td>
                     <?php
                     if (isset($_POST["rempli"]) && !isset($_POST["secteur"])) {
@@ -180,5 +185,6 @@ if (isset($_POST["pseudo"], $_POST["email"], $_POST["mot_de_passe"], $_POST["nom
                 </tr>
             </table>
         </form>
+        </div>
     </body>
 </html>
