@@ -55,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="refreshmessagerie.js"></script>
+        <script type="text/javascript" src="js/refreshmessagerie.js"></script>
+        
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
