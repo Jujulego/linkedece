@@ -49,7 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                    union select utilisateur2 as ami
                                                            from relation
                                                            where utilisateur1 = :pseudo
-                                                             xor utilisateur2 = :pseudo)
+                                                             xor utilisateur2 = :pseudo
+                                                   union select cible as ami
+                                                           from notification
+                                                           where type='da' and emetteur = :pseudo
+                                                   union select emetteur as ami
+                                                           from notification
+                                                           where type='da' and cible = :pseudo)
                                     order by rand()
                                     limit 20"
                     );
@@ -63,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <a href="profil.php?<?php echo http_build_query(["pseudo" => $ami["pseudo"]]) ?>">
                                 <?php echo htmlspecialchars($ami['prenom'] . ' ' . $ami['nom']) ?>
                             </a>
-                            <input type="submit" value="Ajouter à mon réseau">
+                            <input type="submit" value="Ajouter à mon réseau" />
                         </form>
                         <?php
                     }
