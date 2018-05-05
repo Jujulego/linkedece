@@ -280,6 +280,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </table>
                 </form>
 
+                <div id="liencv">
+                    <p><a href="#mon_cv.pdf">Télécharger mon CV</a> </p><br>
+                    <p>Mettre à jour mon cv : <input type="file" accept="application/pdf" name="cv" /></p>
+
+
+                </div>
+
                 <h2>Mes publications</h2>
                 <?php
                 $posts = $bdd->prepare(

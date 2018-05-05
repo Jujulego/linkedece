@@ -108,3 +108,27 @@ textarea
 
 }
 
+ #liencv a:link {
+    background-color: #434343;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+
+
+}
+ #liencv a:visited {
+    background-color: #434343;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+
+}
+ #liencv a:hover {
+    background-color: #eee;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+
+
+}
+
